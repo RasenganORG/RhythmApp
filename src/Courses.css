@@ -1,0 +1,17 @@
+.search-bar {
+    width: 80%;
+    margin: auto;
+}
+
+
+.space {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.ant-space-item{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

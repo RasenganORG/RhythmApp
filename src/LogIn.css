@@ -1,0 +1,24 @@
+.login {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10%;
+}
+
+.login-form-button{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.register-now-button {
+    margin-top: 3%;
+}
+
+.input-field{
+    width: 30%;
+}
+.log-in-title{
+    margin-bottom: 3%;
+}

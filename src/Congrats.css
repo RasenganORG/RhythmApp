@@ -1,0 +1,13 @@
+.congrats-img {
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    margin-bottom: 3%;
+}
+
+.congrats {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

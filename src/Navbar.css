@@ -1,0 +1,28 @@
+
+.menu-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 60%;
+}
+
+.logo-img {
+    width: 120px;
+    height: 60px;
+    margin-right: 10%;  
+    /* pentru mobile trebuie scoasa ultima linie */
+}
+.menu-logo {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    /* justify-content: space-evenly; */
+    width: 100vw;
+}
+
+.layout {
+    position: -webkit-sticky;
+	position: sticky;
+	top: 0;
+    z-index: 1;
+}

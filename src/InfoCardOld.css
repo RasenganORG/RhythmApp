@@ -1,0 +1,39 @@
+.courses-card{
+    margin: 2%;
+    display: flex;
+    flex-direction: row;
+    border: solid 2px rgb(193, 192, 192);
+    border-radius: 20px;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.courses-card:hover {
+    transform: scale(1.01);
+    transition: all .2s ease-in-out;
+}
+
+.course-name-avatar{
+    display: flex;
+    flex-direction: column;
+    margin: 2%;
+    justify-content: center;
+}
+
+
+.course-lists{
+    display: flex;
+    /* justify-content: center; */
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 70%;
+    margin-bottom: 2%;
+}
+
+.list {
+    width: 30%;
+}
+
+.card-button {
+    margin-right: 1%;
+}
