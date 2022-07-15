@@ -9,7 +9,7 @@ const CardNews = () => (
     hoverable
     style={{
       width: 240,
-      background: "black"
+      background: "white"
     }}
     cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
   >

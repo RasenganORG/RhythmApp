@@ -1,0 +1,13 @@
+.statistics-title{
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.statistics-title-button{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 2%;
+}

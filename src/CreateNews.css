@@ -1,0 +1,9 @@
+.create-news {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.form{
+    width: 80%;
+}

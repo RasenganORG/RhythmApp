@@ -1,0 +1,25 @@
+.create-event-title{
+    text-align: center;
+    margin: 4%;
+}
+
+.second-col{
+    margin-left: 20px;
+}
+
+.dashed-button{
+    margin-left: 20%;
+}
+
+.radio-group{
+    margin-left: 20%;
+}
+
+.submit-button{
+    display: flex;
+    justify-content: center;
+}
+
+.back-button{
+    z-index: 1;
+}

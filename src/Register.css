@@ -3,13 +3,20 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 5%
+    margin-top: 7%;
+    overflow-y:unset;
 }
 
 .register-title {
-    margin-bottom: 3%;
+    margin-bottom: 7%;
 }
 
-.input-field {
-   
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.register-img{
+    width: 80%;
 }

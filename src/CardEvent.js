@@ -2,6 +2,8 @@ import { Card, List } from "antd";
 import React from "react";
 import "./CardEvent.css";
 import { NavLink } from "react-router-dom";
+import { Button } from "antd";
+import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 const data = [
   {
     title: (
@@ -46,19 +48,32 @@ const data = [
 ];
 
 const CardEvent = () => (
-  <List
-    className="card-event-list"
-    grid={{
-      gutter: 16,
-      column: 4,
-    }}
-    dataSource={data}
-    renderItem={(item) => (
-      <List.Item>
-        <Card title={item.title}>{item.shortContent}</Card>
-      </List.Item>
-    )}
-  />
+  <div>
+    <div className="all">
+    <div className="buttons">
+    <Button shape = "circle" type="primary" className="back-button">
+    <LeftOutlined />
+    </Button>
+    <Button shape = "circle" type="primary" className="forword-button">
+    <RightOutlined />
+    </Button>
+    </div>
+    <List
+      className="card-event-list"
+      grid={{
+        gutter: 16,
+        column: 4,
+      }}
+      dataSource={data}
+      renderItem={(item) => (
+        <List.Item>
+          <Card title={item.title}>{item.shortContent}</Card>
+        </List.Item>
+      )}
+    />
+    </div>
+    
+  </div>
 );
 
 export default CardEvent;

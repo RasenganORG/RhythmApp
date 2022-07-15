@@ -2,3 +2,9 @@
 .ant-spin-container {
     margin: 1%;
 }
+
+.buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

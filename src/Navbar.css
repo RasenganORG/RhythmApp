@@ -9,6 +9,7 @@
 .logo-img {
     width: 120px;
     height: 60px;
+    cursor: pointer;
     margin-right: 10%;  
     /* pentru mobile trebuie scoasa ultima linie */
 }
@@ -25,4 +26,8 @@
 	position: sticky;
 	top: 0;
     z-index: 1;
+}
+
+.ghost-button{
+    margin-top: 1%;
 }

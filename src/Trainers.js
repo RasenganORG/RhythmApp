@@ -39,27 +39,9 @@ function Trainers() {
       </div>
 
       {/* card for every trainer */}
-      <InfoCard
-        name={"Trainer Name"}
-        firstDevider={"Dance Styles"}
-        secondDevider={"Schools"}
-        firstData={firstTrainersData}
-        secondData={secondTrainersData}
-      />
-      <InfoCard
-        name={"Trainer Name"}
-        firstDevider={"Dance Styles"}
-        secondDevider={"Schools"}
-        firstData={firstTrainersData}
-        secondData={secondTrainersData}
-      />
-      <InfoCard
-        name={"Trainer Name"}
-        firstDevider={"Dance Styles"}
-        secondDevider={"Schools"}
-        firstData={firstTrainersData}
-        secondData={secondTrainersData}
-      />
+      <InfoCard/>
+      <InfoCard/>
+      <InfoCard/>
     </div>
   );
 }
