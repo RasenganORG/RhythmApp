@@ -1,6 +1,6 @@
 .site-layout-content {
     min-height: 280px;
-    padding: 24px;
+    padding: 30px;
     background: #fff;
     display: flex;
     flex-wrap: wrap;
@@ -20,11 +20,17 @@
     margin: 16px 0 16px 24px;
   }
 
-
 .card-news{
     margin: 10%;
 }
 
+.content{
+  display: flex;
+  justify-content: space-between;
+  /* align-items: center; */
+  flex-direction: column;
+  
+}
 
 /* .menu-buttons {
     display: flex;

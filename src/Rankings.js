@@ -77,10 +77,8 @@ export default function Rankings() {
       address: 'Trainer3',
       tags: ['vogue', 'contemporary'],
     },
-    
   ];
   
-
 
   return (
     <div>

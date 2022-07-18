@@ -1,10 +1,22 @@
 
 .ant-spin-container {
     margin: 1%;
+    position: relative;
 }
 
 .buttons{
+    position: absolute;
+    top: 10%;
+    z-index: 10;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    width: 99vw;
 }
+
+.back-button:hover, .forword-button:hover {
+    transition: opacity .3s ease,background-color .4s ease;
+    transform: translate3d(0,-5%,0);
+    background: white;
+}
+

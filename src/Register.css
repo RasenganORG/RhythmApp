@@ -4,7 +4,6 @@
     flex-direction: column;
     align-items: center;
     margin-top: 7%;
-    overflow-y:unset;
 }
 
 .register-title {
@@ -20,3 +19,7 @@
 .register-img{
     width: 80%;
 }
+
+.ant-table-thead > tr >th{
+    background: #c0b9af !important;
+  }

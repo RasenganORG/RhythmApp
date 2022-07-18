@@ -4,14 +4,14 @@ import "./CardNews.css"
 const { Meta } = Card;
 
 const CardNews = () => (
-  <div className="cardNews">
+  <div className="cardNews" >
   <Card 
     hoverable
     style={{
       width: 240,
       background: "white"
     }}
-    cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
+    cover={<img alt="example" src="https://i.imgur.com/IXuC2az.jpg" />}
   >
     <Meta title="Europe Street beat" description="www.instagram.com" />
   </Card>
