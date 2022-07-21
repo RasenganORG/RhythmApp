@@ -1,7 +1,9 @@
-import React from 'react'
+import React from "react";
 
 export default function SchoolsItem() {
   return (
-    <div>SchoolsItem</div>
-  )
+    <div>
+      SchoolsItem
+    </div>
+  );
 }

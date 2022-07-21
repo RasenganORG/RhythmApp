@@ -1,7 +1,9 @@
-import React from 'react'
+import React from "react";
 
 export default function NewsItem() {
   return (
-    <div>NewsItem</div>
-  )
+    <div>
+      NewsItem
+    </div>
+  );
 }
