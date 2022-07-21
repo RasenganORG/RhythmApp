@@ -12,6 +12,8 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 const { Header } = Layout;
 let activeStyle = {
   textDecoration: "underline",
+  fontWeight: "bold",
+  color: "#ffff"
 };
 const items = [
   {

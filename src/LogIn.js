@@ -35,6 +35,7 @@ const LogIn = () => {
           <div className="form">
           <h1 className="log-in-title">Log In</h1>
           <Form
+          id= "form"
             name="normal_login"
             className="login-form input-field"
             initialValues={{
@@ -52,6 +53,7 @@ const LogIn = () => {
               ]}
             >
               <Input className="input"
+              id='username'
                 prefix={<UserOutlined className="site-form-item-icon" />}
                 placeholder="Username"
               />
@@ -66,6 +68,7 @@ const LogIn = () => {
               ]}
             >
               <Input
+              id='password'
                 prefix={<LockOutlined className="site-form-item-icon" />}
                 type="password"
                 placeholder="Password"
@@ -86,6 +89,7 @@ const LogIn = () => {
                 type="primary"
                 htmlType="submit"
                 className="login-form-button"
+                id="button"
                 onClick={redirectHome}
               >
                 Log in
