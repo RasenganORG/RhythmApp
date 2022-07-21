@@ -7,8 +7,8 @@ import {
   LineChartOutlined,
 } from "@ant-design/icons";
 import { Button, Dropdown, Menu, message, Space, Tooltip } from "antd";
-import Highcharts from "highcharts";
-import HighchartsReact from "highcharts-react-official";
+// import Highcharts from "highcharts";
+// import HighchartsReact from "highcharts-react-official";
 
 export default function Statistics() {
   // for dropdown
@@ -78,7 +78,7 @@ export default function Statistics() {
           </Button>
         </Dropdown>
       </div>
-      <HighchartsReact highcharts={Highcharts} options={options} />
+      {/* <HighchartsReact highcharts={Highcharts} options={options} /> */}
       {/* <HighchartsReact
         highcharts={Highcharts}
         constructorType={"stockChart"}
