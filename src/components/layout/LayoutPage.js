@@ -2,6 +2,7 @@ import React from "react";
 import "./LayoutPage.css";
 import { Outlet, NavLink } from "react-router-dom";
 import { Breadcrumb, Layout, Menu } from "antd";
+import { AuthStatus } from "../auth/AuthStatus";
 const { Header, Content, Footer } = Layout;
 
 const LayoutPage = () => {
@@ -11,66 +12,34 @@ const LayoutPage = () => {
   const items = [
     {
       label: (
-        <>
-          <NavLink
-            to="/courses"
-            style={({ isActive }) => (isActive ? activeStyle : undefined)}
-          >
-            Courses
-          </NavLink>
-        </>
-      ),
-      key: "item-1",
-    },
-    {
-      label: (
-        <>
-          <NavLink
-            to="/schools"
-            style={({ isActive }) => (isActive ? activeStyle : undefined)}
-          >
-            Schools
-          </NavLink>
-        </>
+        <NavLink
+          to="/schools"
+          style={({ isActive }) => (isActive ? activeStyle : undefined)}
+        >
+          Schools
+        </NavLink>
       ),
       key: "item-2",
     },
     {
       label: (
-        <>
-          <NavLink
-            to="/trainers"
-            style={({ isActive }) => (isActive ? activeStyle : undefined)}
-          >
-            Trainers
-          </NavLink>
-        </>
+        <NavLink
+          to="/login"
+          style={({ isActive }) => (isActive ? activeStyle : undefined)}
+        >
+          Log In
+        </NavLink>
       ),
-      key: "item-3",
+      key: "item-5",
     },
     {
       label: (
-        <>
-          <NavLink
-            to="/rankings"
-            style={({ isActive }) => (isActive ? activeStyle : undefined)}
-          >
-            Rankings
-          </NavLink>
-        </>
-      ),
-      key: "item-4",
-    },
-    {
-      label: (
-        <>
-          <NavLink
-            to="/login"
-            style={({ isActive }) => (isActive ? activeStyle : undefined)}
-          >
-            Log In
-          </NavLink>
-        </>
+        <NavLink
+          to="/statistics"
+          style={({ isActive }) => (isActive ? activeStyle : undefined)}
+        >
+          Statistics
+        </NavLink>
       ),
       key: "item-5",
     },
@@ -88,6 +57,7 @@ const LayoutPage = () => {
             items={items}
           />
         </Header>
+        <AuthStatus />
         <Content
           style={{
             padding: "0 50px",
@@ -102,9 +72,9 @@ const LayoutPage = () => {
             <Breadcrumb.Item>List</Breadcrumb.Item>
             <Breadcrumb.Item>App</Breadcrumb.Item>
           </Breadcrumb>
-         
+
           <div className="site-layout-content">
-          <Outlet />
+            <Outlet />
           </div>
         </Content>
         <Footer

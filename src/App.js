@@ -7,21 +7,34 @@ import NewsItem from "./components/news/NewsItem";
 import SchoolsItem from "./components/schools/SchoolsItem";
 import LayoutPage from "./components/layout/LayoutPage";
 import LogIn from "./components/LogIn";
+import Statistics from "./components/statistics/Statistics";
+import { AuthProvider } from "./components/auth/AuthProvider";
+import { RequireAuth } from "./components/auth/RequiredAuth";
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<LayoutPage />} > 
-            <Route path="news" element={<News />} />
-            <Route path="news/:newsId" element={<NewsItem />} />
-            <Route path="schools" element={<Schools />} />
-            <Route path="schools/:schoolsId" element={<SchoolsItem />} />
-            <Route path="*" element={<NotFound />} />
-          </Route>
-          <Route path="login" element={<LogIn />} />
-        </Routes>
+        <AuthProvider>
+          <Routes>
+            <Route path="/" element={<LayoutPage />}>
+              <Route path="news" element={<News />} />
+              <Route path="news/:newsId" element={<NewsItem />} />
+              <Route path="schools" element={<Schools />} />
+              <Route path="schools/:schoolsId" element={<SchoolsItem />} />
+              <Route
+                path="statistics"
+                element={
+                  <RequireAuth>
+                    <Statistics />
+                  </RequireAuth>
+                }
+              />
+              <Route path="*" element={<NotFound />} />
+            </Route>
+            <Route path="login" element={<LogIn />} />
+          </Routes>
+        </AuthProvider>
       </BrowserRouter>
     </div>
   );
