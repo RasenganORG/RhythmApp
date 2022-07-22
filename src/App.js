@@ -18,7 +18,12 @@ function App() {
         <AuthProvider>
           <Routes>
             <Route path="/" element={<LayoutPage />}>
-              <Route path="news" element={<News />} />
+              <Route
+                index
+                element={
+                  <News/>
+                }
+              />
               <Route path="news/:newsId" element={<NewsItem />} />
               <Route path="schools" element={<Schools />} />
               <Route path="schools/:schoolsId" element={<SchoolsItem />} />

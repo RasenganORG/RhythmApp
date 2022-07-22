@@ -3,6 +3,7 @@ import "./LayoutPage.css";
 import { Outlet, NavLink } from "react-router-dom";
 import { Breadcrumb, Layout, Menu } from "antd";
 import { AuthStatus } from "../auth/AuthStatus";
+import News from "../news/News";
 const { Header, Content, Footer } = Layout;
 
 const LayoutPage = () => {
@@ -63,16 +64,6 @@ const LayoutPage = () => {
             padding: "0 50px",
           }}
         >
-          <Breadcrumb
-            style={{
-              margin: "16px 0",
-            }}
-          >
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>List</Breadcrumb.Item>
-            <Breadcrumb.Item>App</Breadcrumb.Item>
-          </Breadcrumb>
-
           <div className="site-layout-content">
             <Outlet />
           </div>
