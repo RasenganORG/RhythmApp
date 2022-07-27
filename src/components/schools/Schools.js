@@ -1,9 +1,6 @@
-import React from "react";
 
 export default function Schools() {
   return (
-    <div>
-      Schools
-    </div>
+   <h1>Schools</h1>
   );
 }

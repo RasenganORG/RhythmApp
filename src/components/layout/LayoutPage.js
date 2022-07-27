@@ -1,16 +1,27 @@
 import React from "react";
 import "./LayoutPage.css";
 import { Outlet, NavLink } from "react-router-dom";
-import { Breadcrumb, Layout, Menu } from "antd";
+import { Layout, Menu } from "antd";
 import { AuthStatus } from "../auth/AuthStatus";
-import News from "../news/News";
 const { Header, Content, Footer } = Layout;
 
 const LayoutPage = () => {
   let activeStyle = {
     textDecoration: "underline",
+    color: "#ffff",
   };
   const items = [
+    {
+      label: (
+        <NavLink
+          to="/news"
+          style={({ isActive }) => (isActive ? activeStyle : undefined)}
+        >
+          News
+        </NavLink>
+      ),
+      key: "item-1",
+    },
     {
       label: (
         <NavLink
@@ -31,7 +42,18 @@ const LayoutPage = () => {
           Log In
         </NavLink>
       ),
-      key: "item-5",
+      key: "item-3",
+    },
+    {
+      label: (
+        <NavLink
+          to="/register"
+          style={({ isActive }) => (isActive ? activeStyle : undefined)}
+        >
+          Register
+        </NavLink>
+      ),
+      key: "item-4",
     },
     {
       label: (
@@ -43,6 +65,17 @@ const LayoutPage = () => {
         </NavLink>
       ),
       key: "item-5",
+    },
+    {
+      label: (
+        <NavLink
+          to="/addSchools"
+          style={({ isActive }) => (isActive ? activeStyle : undefined)}
+        >
+          Add Schools
+        </NavLink>
+      ),
+      key: "item-6",
     },
   ];
 
