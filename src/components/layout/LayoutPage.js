@@ -1,7 +1,7 @@
 import React from "react";
 import "./LayoutPage.css";
 import { Outlet, NavLink } from "react-router-dom";
-import { Layout, Menu } from "antd";
+import { Layout, Menu, Button } from "antd";
 import { AuthStatus } from "../auth/AuthStatus";
 const { Header, Content, Footer } = Layout;
 
@@ -10,14 +10,14 @@ const LayoutPage = () => {
     textDecoration: "underline",
     color: "#ffff",
   };
-  const items = [
+  const menuItems  = [
     {
       label: (
         <NavLink
           to="/news"
           style={({ isActive }) => (isActive ? activeStyle : undefined)}
         >
-          News
+           <Button>News</Button>
         </NavLink>
       ),
       key: "item-1",
@@ -28,7 +28,7 @@ const LayoutPage = () => {
           to="/schools"
           style={({ isActive }) => (isActive ? activeStyle : undefined)}
         >
-          Schools
+          <Button>Schools</Button>
         </NavLink>
       ),
       key: "item-2",
@@ -39,7 +39,7 @@ const LayoutPage = () => {
           to="/login"
           style={({ isActive }) => (isActive ? activeStyle : undefined)}
         >
-          Log In
+         <Button>Log In</Button>
         </NavLink>
       ),
       key: "item-3",
@@ -50,7 +50,7 @@ const LayoutPage = () => {
           to="/register"
           style={({ isActive }) => (isActive ? activeStyle : undefined)}
         >
-          Register
+          <Button>Register</Button>
         </NavLink>
       ),
       key: "item-4",
@@ -61,7 +61,7 @@ const LayoutPage = () => {
           to="/statistics"
           style={({ isActive }) => (isActive ? activeStyle : undefined)}
         >
-          Statistics
+          <Button>Statistics</Button>
         </NavLink>
       ),
       key: "item-5",
@@ -72,7 +72,7 @@ const LayoutPage = () => {
           to="/addSchools"
           style={({ isActive }) => (isActive ? activeStyle : undefined)}
         >
-          Add Schools
+         <Button>Add Schools</Button>
         </NavLink>
       ),
       key: "item-6",
@@ -84,17 +84,19 @@ const LayoutPage = () => {
       <Layout className="layout">
         <Header>
           <div className="logo" />
-          <Menu
+          {/* <Menu
             theme="dark"
             mode="horizontal"
             defaultSelectedKeys={["2"]}
             items={items}
-          />
+          /> */}
+          {menuItems.map((item) => item.label)}
         </Header>
         <AuthStatus />
         <Content
           style={{
             padding: "0 50px",
+            height: "100vh"
           }}
         >
           <div className="site-layout-content">

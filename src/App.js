@@ -11,6 +11,7 @@ import Statistics from "./components/statistics/Statistics";
 import { AuthProvider } from "./components/auth/AuthProvider";
 import { RequireAuth } from "./components/auth/RequiredAuth";
 import AddSchools from "./components/schools/addSchools";
+import Register from "./components/Register";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
                 }
               />
               <Route path="addSchools" element={<AddSchools />} />
+              <Route path="register" element={<Register />} />
               <Route path="*" element={<NotFound />} />
             </Route>
             <Route path="login" element={<LogIn />} />

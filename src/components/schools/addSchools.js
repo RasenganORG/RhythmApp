@@ -1,6 +1,9 @@
 import { Col, Row, Button, Form, Input } from "antd";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import FormItem from "antd/lib/form/FormItem";
+import { useState } from "react";
+import { addSchool } from "./schoolsSlice";
+import { useSelector, useDispatch } from "react-redux";
 
 const formItemLayout = {
   labelCol: {
@@ -54,8 +57,25 @@ const validateMessages = {
 };
 
 export default function AddSchool() {
-  const onFinish = (values) => {
-    console.log(values);
+
+  const schools = useSelector((state) => state.schools.schools);
+  const dispatch = useDispatch();
+
+  const [newSchool, setNewSchool] = useState({
+    name: "",
+    likes: 0,
+    trainers: [
+      {
+        trainerName: "",
+        trainerPicture: "",
+      },
+    ],
+  });
+
+  const onFinish = () => {
+    dispatch(addSchool(newSchool))
+    console.log(newSchool)
+    console.log(schools)
   };
 
   return (
@@ -72,6 +92,7 @@ export default function AddSchool() {
             <Form.Item
               name={"schoolName"}
               label="School Name"
+              onChange={(e) => setNewSchool({ ...newSchool, name: e.target.value })}
               rules={[
                 {
                   required: true,
@@ -80,7 +101,13 @@ export default function AddSchool() {
             >
               <Input />
             </Form.Item>
-            <Form.Item name={"schoolDescription"} label="Description">
+            <Form.Item
+              name={"schoolDescription"}
+              label="Description"
+              // onChange={(e) =>
+              //   setNewSchool({ ...newSchool, description: e.target.value })
+              // }
+            >
               <Input.TextArea />
             </Form.Item>
             <FormItem name={"type"}></FormItem>
@@ -94,6 +121,9 @@ export default function AddSchool() {
                       {...(index === 0
                         ? formItemLayout
                         : formItemLayoutWithOutLabel)}
+                      onChange={(e) =>
+                        setNewSchool({ ...newSchool, trainers: [e.target.value] })
+                      }
                       label={index === 0 ? "Trainers:" : ""}
                       required={false}
                       key={field.key}
@@ -148,6 +178,9 @@ export default function AddSchool() {
                       label={index === 0 ? "Dance Styles:" : ""}
                       required={false}
                       key={field.key}
+                      // onChange={(e) =>
+                      //   setNewSchool({ ...newSchool, danceStyles: e.target.value })
+                      // }
                     >
                       <Form.Item
                         {...field}
@@ -191,7 +224,7 @@ export default function AddSchool() {
         </Row>
         <div className="submit-button">
           <Button type="primary" htmlType="submit">
-            Create Event
+            Add School
           </Button>
         </div>
       </Form>
