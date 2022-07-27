@@ -6,10 +6,10 @@ import NotFound from "./components/NotFound";
 import NewsItem from "./components/news/NewsItem";
 import SchoolsItem from "./components/schools/SchoolsItem";
 import LayoutPage from "./components/layout/LayoutPage";
-import LogIn from "./components/LogIn";
+import LogIn from "./components/auth/LogIn";
 import Statistics from "./components/statistics/Statistics";
 import { AuthProvider } from "./components/auth/AuthProvider";
-import { RequireAuth } from "./components/auth/RequiredAuth";
+import  RequiredAuth  from "./components/auth/RequiredAuth";
 import AddSchools from "./components/schools/addSchools";
 
 function App() {
@@ -27,9 +27,9 @@ function App() {
               <Route
                 path="statistics"
                 element={
-                  <RequireAuth>
+                  <RequiredAuth>
                     <Statistics />
-                  </RequireAuth>
+                  </RequiredAuth>
                 }
               />
               <Route path="addSchools" element={<AddSchools />} />
