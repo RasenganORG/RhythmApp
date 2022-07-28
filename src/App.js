@@ -8,15 +8,14 @@ import SchoolsItem from "./components/schools/SchoolsItem";
 import LayoutPage from "./components/layout/LayoutPage";
 import LogIn from "./components/auth/LogIn";
 import Statistics from "./components/statistics/Statistics";
-import { AuthProvider } from "./components/auth/AuthProvider";
 import  RequiredAuth  from "./components/auth/RequiredAuth";
 import AddSchools from "./components/schools/addSchools";
+import Register from "./components/auth/Register";
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <AuthProvider>
           <Routes>
             <Route path="/" element={<LayoutPage />}>
               <Route index element={<News />} />
@@ -36,8 +35,8 @@ function App() {
               <Route path="*" element={<NotFound />} />
             </Route>
             <Route path="login" element={<LogIn />} />
+            <Route path="register" element={<Register />} />
           </Routes>
-        </AuthProvider>
       </BrowserRouter>
     </div>
   );
