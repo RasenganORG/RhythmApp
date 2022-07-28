@@ -72,10 +72,12 @@ export default function AddSchool() {
     ],
   });
 
-  const onFinish = () => {
-    dispatch(addSchool(newSchool))
+  const onFinish = (values) => {
+   
+    // console.log(newSchool)
+    const newSchool = {...values}
     console.log(newSchool)
-    console.log(schools)
+    dispatch(addSchool(newSchool))
   };
 
   return (
@@ -90,9 +92,9 @@ export default function AddSchool() {
         <Row>
           <Col span={12}>
             <Form.Item
-              name={"schoolName"}
+              name={"name"}
               label="School Name"
-              onChange={(e) => setNewSchool({ ...newSchool, name: e.target.value })}
+             // onChange={(e) => setNewSchool({ ...newSchool, name: e.target.value })}
               rules={[
                 {
                   required: true,
@@ -102,7 +104,7 @@ export default function AddSchool() {
               <Input />
             </Form.Item>
             <Form.Item
-              name={"schoolDescription"}
+              name={"likes"}
               label="Description"
               // onChange={(e) =>
               //   setNewSchool({ ...newSchool, description: e.target.value })
@@ -113,7 +115,7 @@ export default function AddSchool() {
             <FormItem name={"type"}></FormItem>
           </Col>
           <Col span={12}>
-            <Form.List name="trainers">
+            <Form.List name="trainer">
               {(fields, { add, remove }, { errors }) => (
                 <>
                   {fields.map((field, index) => (
@@ -121,9 +123,9 @@ export default function AddSchool() {
                       {...(index === 0
                         ? formItemLayout
                         : formItemLayoutWithOutLabel)}
-                      onChange={(e) =>
-                        setNewSchool({ ...newSchool, trainers: [e.target.value] })
-                      }
+                      // onChange={(e) =>
+                      //   setNewSchool({ ...newSchool, trainers: [e.target.value] })
+                      // }
                       label={index === 0 ? "Trainers:" : ""}
                       required={false}
                       key={field.key}
@@ -167,7 +169,7 @@ export default function AddSchool() {
               )}
             </Form.List>
 
-            <Form.List name="dance-styles">
+            {/* <Form.List name="dance-styles">
               {(fields, { add, remove }, { errors }) => (
                 <>
                   {fields.map((field, index) => (
@@ -219,7 +221,7 @@ export default function AddSchool() {
                   </div>
                 </>
               )}
-            </Form.List>
+            </Form.List> */}
           </Col>
         </Row>
         <div className="submit-button">
