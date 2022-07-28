@@ -1,16 +1,32 @@
 import React from "react";
 import "./LayoutPage.css";
-import { Outlet, NavLink } from "react-router-dom";
+import { Outlet, NavLink, useNavigate } from "react-router-dom";
 import { Layout, Menu } from "antd";
-import { AuthStatus } from "../auth/AuthStatus";
-const { Header, Content, Footer } = Layout;
+import { useSelector, useDispatch } from "react-redux";
+import { logout, authActions } from "../auth/authSlice";
 
+const { Header, Content, Footer } = Layout;
 const LayoutPage = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const isAuth = useSelector((state) => state.auth.user);
+  console.log(isAuth);
   let activeStyle = {
     textDecoration: "underline",
     color: "#ffff",
   };
+
+  const onLogout = () => {
+    dispatch(logout());
+    dispatch(authActions.reset());
+  };
   const items = [
+    isAuth
+      ? {
+          label: <>Hello, {isAuth.username}!</>,
+          key: "item-7",
+        }
+      : null,
     {
       label: (
         <NavLink
@@ -36,28 +52,6 @@ const LayoutPage = () => {
     {
       label: (
         <NavLink
-          to="/login"
-          style={({ isActive }) => (isActive ? activeStyle : undefined)}
-        >
-          Log In
-        </NavLink>
-      ),
-      key: "item-3",
-    },
-    {
-      label: (
-        <NavLink
-          to="/register"
-          style={({ isActive }) => (isActive ? activeStyle : undefined)}
-        >
-          Register
-        </NavLink>
-      ),
-      key: "item-4",
-    },
-    {
-      label: (
-        <NavLink
           to="/statistics"
           style={({ isActive }) => (isActive ? activeStyle : undefined)}
         >
@@ -77,6 +71,34 @@ const LayoutPage = () => {
       ),
       key: "item-6",
     },
+    {
+      label: isAuth ? (
+        <NavLink to="/" onClick={onLogout}>
+          Log Out
+        </NavLink>
+      ) : (
+        <NavLink
+          to="/login"
+          style={({ isActive }) => (isActive ? activeStyle : undefined)}
+        >
+          Log In
+        </NavLink>
+      ),
+      key: "item-3",
+    },
+    !isAuth
+      ? {
+          label: (
+            <NavLink
+              to="/register"
+              style={({ isActive }) => (isActive ? activeStyle : undefined)}
+            >
+              Register
+            </NavLink>
+          ),
+          key: "item-4",
+        }
+      : null,
   ];
 
   return (
@@ -91,7 +113,7 @@ const LayoutPage = () => {
             items={items}
           />
         </Header>
-        <AuthStatus />
+
         <Content
           style={{
             padding: "0 50px",
