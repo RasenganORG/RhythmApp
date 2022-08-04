@@ -22,7 +22,7 @@ function App() {
               <Route path="news" element={<News />} />
               <Route path="news/:newsId" element={<NewsItem />} />
               <Route path="schools" element={<Schools />} />
-              <Route path="schools/:schoolsId" element={<SchoolsItem />} />
+              <Route path="schools/:schoolId" element={<SchoolsItem />} />
               <Route
                 path="statistics"
                 element={
@@ -32,6 +32,7 @@ function App() {
                 }
               />
               <Route path="addSchools" element={<AddSchools />} />
+              <Route path="register" element={<Register />} />
               <Route path="*" element={<NotFound />} />
             </Route>
             <Route path="login" element={<LogIn />} />

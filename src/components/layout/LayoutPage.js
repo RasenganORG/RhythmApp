@@ -1,17 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import "./LayoutPage.css";
-import { Outlet, NavLink, useNavigate } from "react-router-dom";
-import { Layout, Menu } from "antd";
+import { Outlet, NavLink } from "react-router-dom";
+import { Layout, Menu, Dropdown, Button, Modal } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { logout, authActions } from "../auth/authSlice";
+import {
+  DownOutlined,
+  BarChartOutlined,
+  ReadOutlined,
+  UserAddOutlined,
+  LoginOutlined,
+  LogoutOutlined,
+} from "@ant-design/icons";
+import AddSchool from "../schools/addSchools";
 
 const { Header, Content, Footer } = Layout;
+
 const LayoutPage = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const isAuth = useSelector((state) => state.auth.user);
-  console.log(isAuth);
-  let activeStyle = {
+  const activeStyle = {
     textDecoration: "underline",
     color: "#ffff",
   };
@@ -20,7 +28,8 @@ const LayoutPage = () => {
     dispatch(logout());
     dispatch(authActions.reset());
   };
-  const items = [
+
+  const menuItems = [
     isAuth
       ? {
           label: <>Hello, {isAuth.username}!</>,
@@ -37,6 +46,7 @@ const LayoutPage = () => {
         </NavLink>
       ),
       key: "item-1",
+      icon: <ReadOutlined />,
     },
     {
       label: (
@@ -58,18 +68,8 @@ const LayoutPage = () => {
           Statistics
         </NavLink>
       ),
-      key: "item-5",
-    },
-    {
-      label: (
-        <NavLink
-          to="/addSchools"
-          style={({ isActive }) => (isActive ? activeStyle : undefined)}
-        >
-          Add Schools
-        </NavLink>
-      ),
-      key: "item-6",
+      key: "item-3",
+      icon: <BarChartOutlined />,
     },
     {
       label: isAuth ? (
@@ -84,7 +84,8 @@ const LayoutPage = () => {
           Log In
         </NavLink>
       ),
-      key: "item-3",
+      key: "item-4",
+      icon: isAuth ? <LogoutOutlined /> : <LoginOutlined />,
     },
     !isAuth
       ? {
@@ -96,7 +97,8 @@ const LayoutPage = () => {
               Register
             </NavLink>
           ),
-          key: "item-4",
+          key: "item-5",
+          icon: <UserAddOutlined />,
         }
       : null,
   ];
@@ -110,26 +112,17 @@ const LayoutPage = () => {
             theme="dark"
             mode="horizontal"
             defaultSelectedKeys={["2"]}
-            items={items}
+            items={menuItems}
           />
         </Header>
 
         <Content
-          style={{
-            padding: "0 50px",
-          }}
+          className="layoutContent"
         >
           <div className="site-layout-content">
             <Outlet />
           </div>
         </Content>
-        <Footer
-          style={{
-            textAlign: "center",
-          }}
-        >
-          Ant Design ©2018 Created by Ant UED
-        </Footer>
       </Layout>
     </div>
   );

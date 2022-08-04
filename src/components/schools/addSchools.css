@@ -1,0 +1,15 @@
+.addSchoolsButton{
+    color:white;
+    background-color: #1890FF;
+    padding: 1% 1.5%;
+    cursor: pointer;
+    border-radius: 5%;
+    border: none;
+    display: flex;
+    margin:auto;
+    transition: all .2s ease-in-out; 
+}
+
+.addSchoolsButton:hover{
+    background-color: #3da1ff;
+}
