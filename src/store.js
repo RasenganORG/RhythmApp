@@ -1,14 +1,16 @@
-import {configureStore} from '@reduxjs/toolkit'
-import { configure } from '@testing-library/react'
-import schoolsReducer from "./components/schools/schoolsSlice"
-import addSchoolReducer from "./components/schools/schoolsSlice"
-import authReducer from "./components/auth/authSlice"
-const store = configureStore({
-    reducer:{
-        schools: schoolsReducer,
-        addSchool: addSchoolReducer,
-        auth: authReducer
-    }
-})
+import { configureStore } from "@reduxjs/toolkit";
+import schoolsReducer from "./components/schools/schoolsSlice";
+import addSchoolReducer from "./components/schools/schoolsSlice";
+import authReducer from "./components/auth/authSlice";
+import trainersReducer from "./components/trainers/trainersSlice"
 
-export default store
+const store = configureStore({
+  reducer: {
+    schools: schoolsReducer,
+    addSchool: addSchoolReducer,
+    auth: authReducer,
+    trainers: trainersReducer
+  },
+});
+
+export default store;

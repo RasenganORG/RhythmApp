@@ -1,34 +1,39 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/api/user/";
+const API_USER_LOGIN_URL = "http://localhost:8080/api/getLoggedUser/";
+const API_USER_REGISTER_URL = "http://localhost:8080/api/user/";
 
-// register
+//register user
 const register = async (userData) => {
-  const response = await axios.post(API_URL, userData);
-  // save the user
+  const response = await axios.post(API_USER_REGISTER_URL, userData, {
+    headers: {
+      // Overwrite Axios's automatically set Content-Type
+      "Content-Type": "application/json",
+    },
+  });
+
   if (response.data) {
     localStorage.setItem("user", JSON.stringify(response.data));
   }
   return response.data;
 };
 
-// login
+//login user
 const login = async (userData) => {
-  // de modificat
-  const response = await axios.get(API_URL + userData.email);
-  console.log(response);
-  if (response.data && response.data.password === userData.password) {
+  const response = await axios.get(
+    `${API_USER_LOGIN_URL}${userData.email}/?pwd=${userData.password}`
+  );
+
+  if (response.data) {
     localStorage.setItem("user", JSON.stringify(response.data));
-    return response.data;
   }
-  else{
-    console.log("error")
-  }
+  return response.data;
 };
 
-const authService = {
-  register,
-  login,
+const logout = async () => {
+  localStorage.removeItem("user");
 };
+
+const authService = { register, login, logout };
 
 export default authService;

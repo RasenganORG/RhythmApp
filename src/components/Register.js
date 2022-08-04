@@ -24,7 +24,6 @@ export default function Register() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(username, email, password);
     const userData = {
       username,
       email,

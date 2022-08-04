@@ -1,26 +1,52 @@
-import React from "react";
+import React, { useState } from "react";
 import "./LayoutPage.css";
 import { Outlet, NavLink } from "react-router-dom";
-import { Layout, Menu, Button } from "antd";
-import { AuthStatus } from "../auth/AuthStatus";
+import { Layout, Menu, Dropdown, Button, Modal } from "antd";
+import { useSelector, useDispatch } from "react-redux";
+import { logout, authActions } from "../auth/authSlice";
+import {
+  DownOutlined,
+  BarChartOutlined,
+  ReadOutlined,
+  UserAddOutlined,
+  LoginOutlined,
+  LogoutOutlined,
+} from "@ant-design/icons";
+import AddSchool from "../schools/addSchools";
+
 const { Header, Content, Footer } = Layout;
 
 const LayoutPage = () => {
-  let activeStyle = {
+  const dispatch = useDispatch();
+  const isAuth = useSelector((state) => state.auth.user);
+  const activeStyle = {
     textDecoration: "underline",
     color: "#ffff",
   };
-  const menuItems  = [
+
+  const onLogout = () => {
+    dispatch(logout());
+    dispatch(authActions.reset());
+  };
+
+  const menuItems = [
+    isAuth
+      ? {
+          label: <>Hello, {isAuth.username}!</>,
+          key: "item-7",
+        }
+      : null,
     {
       label: (
         <NavLink
           to="/news"
           style={({ isActive }) => (isActive ? activeStyle : undefined)}
         >
-           <Button>News</Button>
+          News
         </NavLink>
       ),
       key: "item-1",
+      icon: <ReadOutlined />,
     },
     {
       label: (
@@ -28,7 +54,7 @@ const LayoutPage = () => {
           to="/schools"
           style={({ isActive }) => (isActive ? activeStyle : undefined)}
         >
-          <Button>Schools</Button>
+          Schools
         </NavLink>
       ),
       key: "item-2",
@@ -36,47 +62,45 @@ const LayoutPage = () => {
     {
       label: (
         <NavLink
-          to="/login"
-          style={({ isActive }) => (isActive ? activeStyle : undefined)}
-        >
-         <Button>Log In</Button>
-        </NavLink>
-      ),
-      key: "item-3",
-    },
-    {
-      label: (
-        <NavLink
-          to="/register"
-          style={({ isActive }) => (isActive ? activeStyle : undefined)}
-        >
-          <Button>Register</Button>
-        </NavLink>
-      ),
-      key: "item-4",
-    },
-    {
-      label: (
-        <NavLink
           to="/statistics"
           style={({ isActive }) => (isActive ? activeStyle : undefined)}
         >
-          <Button>Statistics</Button>
+          Statistics
         </NavLink>
       ),
-      key: "item-5",
+      key: "item-3",
+      icon: <BarChartOutlined />,
     },
     {
-      label: (
+      label: isAuth ? (
+        <NavLink to="/" onClick={onLogout}>
+          Log Out
+        </NavLink>
+      ) : (
         <NavLink
-          to="/addSchools"
+          to="/login"
           style={({ isActive }) => (isActive ? activeStyle : undefined)}
         >
-         <Button>Add Schools</Button>
+          Log In
         </NavLink>
       ),
-      key: "item-6",
+      key: "item-4",
+      icon: isAuth ? <LogoutOutlined /> : <LoginOutlined />,
     },
+    !isAuth
+      ? {
+          label: (
+            <NavLink
+              to="/register"
+              style={({ isActive }) => (isActive ? activeStyle : undefined)}
+            >
+              Register
+            </NavLink>
+          ),
+          key: "item-5",
+          icon: <UserAddOutlined />,
+        }
+      : null,
   ];
 
   return (
@@ -84,32 +108,33 @@ const LayoutPage = () => {
       <Layout className="layout">
         <Header>
           <div className="logo" />
-          {/* <Menu
+          <Menu
             theme="dark"
             mode="horizontal"
             defaultSelectedKeys={["2"]}
-            items={items}
-          /> */}
-          {menuItems.map((item) => item.label)}
+            items={menuItems}
+          />
+          {/* {menuItems.map((item) => item.label)} */}
         </Header>
-        <AuthStatus />
+
         <Content
-          style={{
-            padding: "0 50px",
-            height: "100vh"
-          }}
+          // style={{
+          //   padding: "0 50px",
+          //   height: "100vh"
+          // }}
+          className="layoutContent"
         >
           <div className="site-layout-content">
             <Outlet />
           </div>
         </Content>
-        <Footer
+        {/* <Footer
           style={{
             textAlign: "center",
           }}
         >
           Ant Design ©2018 Created by Ant UED
-        </Footer>
+        </Footer> */}
       </Layout>
     </div>
   );

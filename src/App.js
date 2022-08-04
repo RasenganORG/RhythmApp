@@ -6,31 +6,29 @@ import NotFound from "./components/NotFound";
 import NewsItem from "./components/news/NewsItem";
 import SchoolsItem from "./components/schools/SchoolsItem";
 import LayoutPage from "./components/layout/LayoutPage";
-import LogIn from "./components/LogIn";
+import LogIn from "./components/auth/LogIn";
 import Statistics from "./components/statistics/Statistics";
-import { AuthProvider } from "./components/auth/AuthProvider";
-import { RequireAuth } from "./components/auth/RequiredAuth";
+import  RequiredAuth  from "./components/auth/RequiredAuth";
 import AddSchools from "./components/schools/addSchools";
-import Register from "./components/Register";
+import Register from "./components/auth/Register";
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <AuthProvider>
           <Routes>
             <Route path="/" element={<LayoutPage />}>
               <Route index element={<News />} />
               <Route path="news" element={<News />} />
               <Route path="news/:newsId" element={<NewsItem />} />
               <Route path="schools" element={<Schools />} />
-              <Route path="schools/:schoolsId" element={<SchoolsItem />} />
+              <Route path="schools/:schoolId" element={<SchoolsItem />} />
               <Route
                 path="statistics"
                 element={
-                  <RequireAuth>
+                  <RequiredAuth>
                     <Statistics />
-                  </RequireAuth>
+                  </RequiredAuth>
                 }
               />
               <Route path="addSchools" element={<AddSchools />} />
@@ -38,8 +36,8 @@ function App() {
               <Route path="*" element={<NotFound />} />
             </Route>
             <Route path="login" element={<LogIn />} />
+            <Route path="register" element={<Register />} />
           </Routes>
-        </AuthProvider>
       </BrowserRouter>
     </div>
   );
