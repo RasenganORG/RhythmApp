@@ -48,13 +48,6 @@
     background-size: 200%;
     transition: 0.6s ease-out;
 }
-/* .header {
-    display: flex;
-    background-color: #7814ff;
-    flex-direction: column;
-   
-    padding: 3.6rem 12.5% 12.6rem;
-}  */
 
 .headerContent{
     display: flex;
@@ -88,14 +81,6 @@
     max-width: 82rem;
     font-family: Work Sans,Arial,Helvetica Neue,sans-serif;
 } 
-/* 
-.headerImg{
-    display: block;
-    border: solid 5px white;
-    z-index: 1;
-    margin-top: 20px;
-    position: relative;
-}  */
 
 .headerImg{
     display: flex;
@@ -115,7 +100,6 @@
 .ant-tabs{
     margin-top: -40px !important;
     width: 100vw;
-    /* margin-left: 45px !important; */
 }
 .ant-tabs-card.ant-tabs-top > .ant-tabs-nav .ant-tabs-tab-active, .ant-tabs-card.ant-tabs-top > div > .ant-tabs-nav .ant-tabs-tab-active{
     background-color: #7814ff ;

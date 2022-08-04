@@ -114,27 +114,15 @@ const LayoutPage = () => {
             defaultSelectedKeys={["2"]}
             items={menuItems}
           />
-          {/* {menuItems.map((item) => item.label)} */}
         </Header>
 
         <Content
-          // style={{
-          //   padding: "0 50px",
-          //   height: "100vh"
-          // }}
           className="layoutContent"
         >
           <div className="site-layout-content">
             <Outlet />
           </div>
         </Content>
-        {/* <Footer
-          style={{
-            textAlign: "center",
-          }}
-        >
-          Ant Design ©2018 Created by Ant UED
-        </Footer> */}
       </Layout>
     </div>
   );
