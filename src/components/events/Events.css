@@ -1,0 +1,22 @@
+.back-button,
+.forword-button {
+  border: none !important;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1) !important;
+  transition: all 0.3s ease 0s;
+}
+
+.back-button {
+  margin-left: 5px !important;
+}
+
+.forword-button {
+  margin-right: 4px !important;
+}
+
+.back-button:hover,
+.forword-button:hover {
+  transform: scale(1.2);
+  background: #7814ff !important;
+  border: none !important;
+  color: white !important;
+}

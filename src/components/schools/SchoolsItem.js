@@ -1,10 +1,11 @@
-import { Tabs, Avatar, List, Tag } from "antd";
+import { Tabs, Avatar, List } from "antd";
 import { LikeTwoTone } from "@ant-design/icons";
-import { getSchoolById } from "./schoolsSlice";
+import { getSchoolById, updateSchool } from "./schoolsSlice";
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-
+import Courses from "../courses/Courses";
+import CalendarPage from "./CalendarPage";
 import "./SchoolItem.css";
 import {
   InstagramFilled,
@@ -19,9 +20,7 @@ export default function SchoolsItem() {
   const dispatch = useDispatch();
   const params = useParams();
   const schoolId = params.schoolId;
-  const currentSchool = useSelector((state) => state.schools.currentSchool)
-
-  console.log({schoolId})
+  const currentSchool = useSelector((state) => state.schools.currentSchool);
 
   useEffect(() => {
     dispatch(getSchoolById(schoolId));
@@ -62,7 +61,6 @@ export default function SchoolsItem() {
         setLoading(false);
       });
   };
-
   useEffect(() => {
     loadMoreData();
   }, []);
@@ -70,12 +68,12 @@ export default function SchoolsItem() {
   return (
     <div>
       <div className="header">
-        <div className="headerIcons">
+        <div className="headerIconsSchool">
           <div className="insta icon">
             <InstagramFilled />
           </div>
           <div className="like icon">
-            <LikeFilled />
+            <LikeFilled onClick={() => dispatch(updateSchool(schoolId))} />
           </div>
           <div className="link icon">
             <LinkOutlined />
@@ -90,13 +88,15 @@ export default function SchoolsItem() {
         </div>
       </div>
       <div className="imgAndTabs">
-        <img
-          className="headerImg"
-          src={currentSchool?.imageURL}
-          alt="school-img"
-        />
+        <div>
+          <img
+            className="headerImg"
+            src={currentSchool?.imageURL}
+            alt="school-img"
+          />
+        </div>
         <Tabs className="tabs" type="card">
-          <TabPane tab="Our Trainers" key="1">
+          <TabPane tab="Trainers" key="1">
             <div
               id="scrollableDiv"
               style={{
@@ -137,37 +137,18 @@ export default function SchoolsItem() {
               />
             </div>
           </TabPane>
-          <TabPane tab="Dance Styles" key="2">
-            <p>
-              Here at {currentSchool?.name} you can learn the following dance
-              styles:
-            </p>
-            {currentSchool?.danceStyles?.map((danceStyle) => (
-              <Tag
-                color={tagColors[Math.floor(Math.random() * tagColors.length)]}
-                style={{
-                  fontSize: "15px",
-                  margin: "10px",
-                }}
-              >
-                #{danceStyle}
-              </Tag>
-            ))}
+          <TabPane
+            tab="
+          Courses"
+            key="3"
+          >
+            <Courses schoolId={schoolId} />
           </TabPane>
-          <TabPane tab="UpcomingEvents" key="3">
-            Eventsssss
+          <TabPane tab="Calendar" key="2">
+            <CalendarPage />
           </TabPane>
         </Tabs>
       </div>
-      <h3>Trainers:</h3>
-      {currentSchool?.trainers?.map((trainer) => (
-        <div>{trainer}</div>
-      ))}
-      <h3>Dance Styles:</h3>
-      {currentSchool?.danceStyles?.map((danceStyle) => (
-        <div>{danceStyle}</div>
-      ))}
-      <h3>Likes: {currentSchool?.likes}</h3>
     </div>
   );
 }

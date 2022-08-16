@@ -1,20 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import "./LayoutPage.css";
 import { Outlet, NavLink } from "react-router-dom";
-import { Layout, Menu, Dropdown, Button, Modal } from "antd";
+import { Layout, Menu } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { logout, authActions } from "../auth/authSlice";
 import {
-  DownOutlined,
   BarChartOutlined,
   ReadOutlined,
   UserAddOutlined,
   LoginOutlined,
   LogoutOutlined,
 } from "@ant-design/icons";
-import AddSchool from "../schools/addSchools";
+import Events from "../events/Events";
 
-const { Header, Content, Footer } = Layout;
+const { Header, Content } = Layout;
 
 const LayoutPage = () => {
   const dispatch = useDispatch();
@@ -115,10 +114,8 @@ const LayoutPage = () => {
             items={menuItems}
           />
         </Header>
-
-        <Content
-          className="layoutContent"
-        >
+        <Events />
+        <Content className="layoutContent">
           <div className="site-layout-content">
             <Outlet />
           </div>

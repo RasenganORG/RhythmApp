@@ -1,0 +1,14 @@
+.newsCardMetaDescription{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 250px;
+}
+.newsCardMeta{
+    display: flex;
+    flex-direction: column;
+}
+.newsLikes{
+    margin-left: 100px;
+    width: 250px;
+}
