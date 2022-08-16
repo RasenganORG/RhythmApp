@@ -1,0 +1,122 @@
+.headerCourse {
+  color: #fff;
+  background-color: #7814ff;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  padding: 80px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+}
+.headerCourseContent{
+  display: flex;
+  flex-direction: column;
+  padding-left: 20px;
+}
+.headerCourseTitle {
+  font-size: 4.8rem;
+  line-height: 1.17;
+  color: #fff;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.headerCourseDescription {
+  color: #fff;
+  font-size: 1.2rem;
+  line-height: 1.68;
+  letter-spacing: -0.04rem;
+  margin-bottom: 1.8rem;
+  font-weight: 400;
+  max-width: 82rem;
+  font-family: Work Sans, Arial, Helvetica Neue, sans-serif;
+}
+
+.headerCourseSchool {
+  cursor: pointer;
+}
+
+.ant-collapse-item-active {
+  background-color: rgb(0, 0, 0) !important;
+  color: white !important;
+}
+
+.ant-collapse-item:hover {
+  background-color: rgb(0, 0, 0) !important;
+  color: white !important;
+  transition: 0.8s ease-out;
+}
+
+.ant-collapse-item:hover > .ant-collapse-header:hover {
+  background-color: rgb(0, 0, 0) !important;
+  color: white !important;
+  transition: 0.8s ease-out;
+}
+
+.ant-collapse-item-active > .ant-collapse-expand-icon {
+  color: white !important;
+}
+
+.ant-collapse-content {
+  background-color: rgb(245, 245, 245) !important;
+}
+
+.ant-collapse-item-active > .ant-collapse-header {
+  color: white !important;
+  font-weight: 600;
+}
+
+.imgAndCollapse {
+  display: flex;
+  flex-direction: row;
+}
+
+.images {
+  display: flex;
+  flex-direction: column;
+  border: solid 5px white;
+  margin-top: -80px;
+  margin-left: 3%;
+}
+
+.headerIconsCourse {
+  display: flex;
+  flex-direction: column;
+}
+
+.iconCourse {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(255, 255, 255);
+  margin: 8px;
+  border-radius: 50%;
+  font-size: 20px;
+  padding: 10px;
+  color: #000000;
+}
+
+.likeCourse:hover {
+  background: linear-gradient(
+      to left,
+      rgb(99, 221, 255) 60%,
+      rgb(255, 255, 255) 40%
+    )
+    right;
+  color: white;
+  background-size: 200%;
+  transition: 0.6s ease-out;
+}
+
+ .linkCourse:hover {
+  background: linear-gradient(to left, #5100ba 60%, rgb(255, 255, 255) 40%)
+    right;
+  color: white;
+  background-size: 200%;
+  transition: 0.6s ease-out;
+}
+
+.imgAndCollapse > .tabs{
+  margin-top: -46px !important;
+  margin-left: 30px !important;
+}

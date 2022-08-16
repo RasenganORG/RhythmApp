@@ -1,0 +1,24 @@
+.headerNewsImg{
+    display: flex;
+    margin: -60px auto auto auto;
+    width:70%;
+    border: solid 5px white;
+}
+
+.headerNews{
+    display: flex;
+    color: #fff;
+    background-color: #7814ff;
+    margin: 0.rem 0;
+    padding: 3.6rem 15.5% 6rem;
+}
+
+.newsDescription{
+    font-size: 20px;
+    width: 50%;
+}
+.newsDescriptionContainer{
+    margin-top: 2%;
+    display: flex;
+    justify-content: center;
+}

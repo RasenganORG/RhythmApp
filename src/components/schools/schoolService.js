@@ -22,6 +22,16 @@ const getSchoolById = async (schoolId) => {
   return response.data;
 };
 
-const schoolsService = { createSchool, getSchools, getSchoolById };
+const updateSchool = async (schoolId) => {
+  const response = await axios.put(`${API_SCHOOLS_URL}${schoolId}`);
+  return response.data;
+};
+
+const schoolsService = {
+  createSchool,
+  getSchools,
+  getSchoolById,
+  updateSchool,
+};
 
 export default schoolsService;

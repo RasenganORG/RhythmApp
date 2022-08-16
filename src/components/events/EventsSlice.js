@@ -1,20 +1,20 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import schoolService from "./schoolService";
+import eventsService from "./EventsService";
 
 const initialState = {
-  schools: [],
-  currentSchool: {},
+  events: [],
+  currentEvent: {},
   isError: false,
   isSuccess: false,
   isLoading: false,
   message: "",
 };
 
-export const createSchool = createAsyncThunk(
-  "schools/createSchool",
-  async (school, thunkAPI) => {
+export const createEvent = createAsyncThunk(
+  "events/createEvent",
+  async (event, thunkAPI) => {
     try {
-      return await schoolService.createSchool(school);
+      return await eventsService.createEvent(event);
     } catch (error) {
       const message =
         (error.response &&
@@ -27,11 +27,11 @@ export const createSchool = createAsyncThunk(
   }
 );
 
-export const getSchools = createAsyncThunk(
-  "schools/getSchools",
+export const getEvents = createAsyncThunk(
+  "events/getEvents",
   async (thunkAPI) => {
     try {
-      return await schoolService.getSchools();
+      return await eventsService.getEvents();
     } catch (error) {
       const message =
         (error.response &&
@@ -44,11 +44,11 @@ export const getSchools = createAsyncThunk(
   }
 );
 
-export const getSchoolById = createAsyncThunk(
-  "schools/getSchool",
-  async (schoolId, thunkAPI) => {
+export const getEventById = createAsyncThunk(
+  "events/getEventById",
+  async (eventId, thunkAPI) => {
     try {
-      return await schoolService.getSchoolById(schoolId);
+      return await eventsService.getEventById(eventId);
     } catch (error) {
       const message =
         (error.response &&
@@ -61,11 +61,11 @@ export const getSchoolById = createAsyncThunk(
   }
 );
 
-export const updateSchool = createAsyncThunk(
-  "schools/updateSchool",
-  async (schoolId, thunkAPI) => {
+export const updateEvent = createAsyncThunk(
+  "events/updateEvent",
+  async (eventId, thunkAPI) => {
     try {
-      return await schoolService.updateSchool(schoolId);
+      return await eventsService.updateEvent(eventId);
     } catch (error) {
       const message =
         (error.response &&
@@ -78,77 +78,79 @@ export const updateSchool = createAsyncThunk(
   }
 );
 
-const schoolsSlice = createSlice({
-  name: "schools",
+const eventsSlice = createSlice({
+  name: "events",
   initialState,
   reducers: {
     like: (state, action) => {
-      state.schools[action.payload].likes++;
+      state.events[action.payload].likes++;
     },
-    addSchool: (state, action) => {
-      state.schools.push(action.payload);
+    addEvent: (state, action) => {
+      state.events.push(action.payload);
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(createSchool.pending, (state) => {
+      .addCase(createEvent.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(createSchool.fulfilled, (state, action) => {
+      .addCase(createEvent.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.schools = [...state.schools, action.payload];
+        state.events = [...state.events, action.payload];
       })
-      .addCase(createSchool.rejected, (state, action) => {
+      .addCase(createEvent.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
-        state.schools = null;
+        state.events = null;
       })
-      .addCase(getSchools.pending, (state) => {
+      .addCase(getEvents.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getSchools.fulfilled, (state, action) => {
+      .addCase(getEvents.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.schools = action.payload;
+        state.events = action.payload;
       })
-      .addCase(getSchools.rejected, (state, action) => {
+      .addCase(getEvents.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
-        state.schools = [];
+        state.events = [];
       })
-      .addCase(getSchoolById.pending, (state) => {
+      .addCase(getEventById.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getSchoolById.fulfilled, (state, action) => {
+      .addCase(getEventById.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.currentSchool = action.payload;
+        state.currentEvent = action.payload;
       })
-      .addCase(getSchoolById.rejected, (state, action) => {
+      .addCase(getEventById.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
-        state.currentSchool = {};
+        state.currentEvent = {};
       })
-      .addCase(updateSchool.pending, (state) => {
+      .addCase(updateEvent.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(updateSchool.fulfilled, (state, action) => {
+      .addCase(updateEvent.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.schools = [...state.schools];
+        state.events.find((event) => event.id === action.payload.id).currentNumberOfParticipants--
+        state.currentEvent.currentNumberOfParticipants--
       })
-      .addCase(updateSchool.rejected, (state, action) => {
+      .addCase(updateEvent.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
-        state.schools = {};
+        state.events = {};
       });
   },
 });
 
-export default schoolsSlice.reducer;
-export const schoolsActions = schoolsSlice.actions;
+export default eventsSlice.reducer;
+// export const { like, addSchool } = schoolsSlice.actions;
+export const eventsActions = eventsSlice.actions;

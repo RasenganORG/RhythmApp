@@ -1,0 +1,98 @@
+.site-card-border-less-wrapper {
+  padding: 30px;
+  margin: 0 !important;
+}
+
+.eventCards {
+  display: flex;
+  flex-direction: row;
+}
+
+.sc-bxivhb,
+.bVGXIY {
+  display: flex;
+  justify-content: center;
+}
+
+.anticon:hover {
+  color: white !important;
+}
+
+.eventCard {
+  background-color: white;
+  width: 500px;
+  border: 1px solid rgb(224, 222, 222);
+  margin: 5% 5%;
+  transition: all 0.5s ease-in-out;
+  cursor: pointer;
+}
+
+.eventCardHeader {
+  height: 40px;
+  background-color: rgb(224, 222, 222);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2%;
+}
+
+.eventCardBody {
+  background-color: white;
+  height: 85px;
+  border-left: 2.5px solid #7814ff;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid rgb(221, 221, 221);
+}
+
+.eventCardFooter {
+  height: 30px;
+  padding-left: 10px;
+}
+
+.eventCard:hover {
+  transform: scale(1.05);
+}
+
+.eventCardBodyTrainers {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid rgb(225, 225, 225);
+  height: 100px;
+}
+
+.eventCardTrainersTitle {
+  margin-bottom: 0;
+}
+.avatarTrainers {
+  display: flex;
+  flex-direction: row;
+  margin: 1%;
+  height: 30px;
+}
+.ant-avatar-group .ant-avatar:not(:first-child) {
+  margin-left: 5px !important;
+}
+
+.ant-avatar-group {
+  width: 200px;
+}
+
+.available {
+  background-color: rgb(239, 239, 239);
+  text-align: center;
+}
+.outOf {
+  background-color: rgb(239, 239, 239);
+  text-align: center;
+}
+.locationName {
+  margin-bottom: 0;
+}
+.icofont-tack-pin,
+.icofont-user-alt-1 {
+  font-size: 16px !important;
+  color: #9c6cdb;
+  margin: 2px;
+}

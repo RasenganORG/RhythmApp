@@ -1,0 +1,89 @@
+.eventSidebar {
+  background-color: #f0f2f5;
+  height: 100vh;
+}
+
+.eventSidebarTitle {
+  text-align: center;
+  color: white;
+  background-color: black;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 800;
+}
+
+.eventSidebar > .eventCard {
+  width: 20vw;
+  justify-content: center;
+  align-items: center;
+}
+
+.eventMainHeader {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  background-color: #7814ff;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 800;
+}
+
+.eventMainTitle {
+  color: white;
+  font-weight: 800;
+}
+
+.eventMainDate,
+.eventMainLocation {
+  display: flex;
+  flex-direction: row;
+}
+
+.icofont-ui-calendar {
+  margin-right: 5px;
+}
+
+.eventMainLocation > .icofont-tack-pin {
+  color: white;
+  margin-right: 5px;
+}
+
+.eventBody {
+  display: flex;
+  flex-direction: row;
+}
+
+.eventBodyDescription {
+  margin-left: 1%;
+}
+
+.eventImg {
+  display: flex;
+  justify-content: center;
+  border: solid 5px white;
+  margin-top: -20px;
+  margin-left: 3%;
+  width: 50vw;
+}
+
+.eventParticipateButton {
+  display: block;
+  background-color: #9245f7;
+  color: white;
+  cursor: pointer;
+  border: none;
+  padding: 6px;
+  margin: 20px auto auto auto;
+  border-radius: 20px;
+  transition: all 0.2s ease-in-out;
+}
+
+.eventParticipateButton:hover {
+  transform: scale(1.1);
+  background-color: #b47aff;
+  box-shadow: 6px 8px 5px rgba(127, 127, 127, 0.2);
+}

@@ -6,7 +6,7 @@
     margin: 0.rem 0;
     padding: 3.6rem 12.5% 12.6rem;
 }
-.headerIcons{
+.headerIconsSchool{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -86,7 +86,7 @@
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
-    width:40%;
+    /* width:90%; */
     border: solid 5px white;
     margin-top: -200px;
     margin-left: 3%;
@@ -100,6 +100,7 @@
 .ant-tabs{
     margin-top: -40px !important;
     width: 100vw;
+    margin-left: 50px  !important;;
 }
 .ant-tabs-card.ant-tabs-top > .ant-tabs-nav .ant-tabs-tab-active, .ant-tabs-card.ant-tabs-top > div > .ant-tabs-nav .ant-tabs-tab-active{
     background-color: #7814ff ;

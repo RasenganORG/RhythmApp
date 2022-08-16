@@ -1,6 +1,6 @@
 import { List, Card, Tag, Modal, Button } from "antd";
 import { LikeTwoTone } from "@ant-design/icons";
-import { schoolsActions,getSchools } from "./schoolsSlice";
+import { getSchools} from "./schoolsSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -10,7 +10,7 @@ const { Meta } = Card;
 
 export default function Schools() {
   const navigate = useNavigate();
-  const { schools, isLoading, isSuccess, isError, message } = useSelector(
+  const { schools } = useSelector(
     (state) => state.schools
   );
   const dispatch = useDispatch();
@@ -66,19 +66,19 @@ export default function Schools() {
         }}
         dataSource={schools}
         renderItem={(school, index) => (
-          <List.Item>
+          <List.Item key={school}>
             <Card
               className="schoolsCard"
               cover={
                 <img
-                  style={{ height: "300px" }}
+                  style={{ height: "350px" }}
                   alt="example"
                   src={school.imageURL}
                 />
               }
               actions={[
                 <p className="schoolCardFooter">
-                  Trainers: {school.trainers.length}
+                  Trainers: {school.trainers?.length}
                 </p>,
                 <p className="schoolCardFooter">Courses:{}</p>,
                 <div
@@ -90,9 +90,7 @@ export default function Schools() {
                   }}
                 >
                   <LikeTwoTone
-                    twoToneColor="#0595f5"
-                    onClick={() => dispatch(schoolsActions.like(index))}
-                    size="large"
+                    twoToneColor="#0595f5" size="large"
                   />
                   <p style={{ color: "#0595f5" }}>{school.likes}</p>
                 </div>,
@@ -104,7 +102,7 @@ export default function Schools() {
                 onClick={() => {
                   navigate(`/schools/${school.id}`);
                 }}
-                description={school.danceStyles.map((danceStyle) => (
+                description={school.danceStyles?.map((danceStyle) => (
                   <Tag
                     color={
                       tagColors[Math.floor(Math.random() * tagColors.length)]
