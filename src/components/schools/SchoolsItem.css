@@ -1,0 +1,148 @@
+/* @import '~antd/dist/antd.css'; */
+
+.header {
+  display: flex;
+  color: #fff;
+  background-color: #7814ff;
+  margin: 0rem 0;
+  padding: 3.6rem 12.5% 12.6rem;
+}
+.headerIconsSchool {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.iconInsta, .iconLike, .iconLink, .iconTwitter {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(255, 255, 255);
+  margin: 8px;
+  border-radius: 50%;
+  font-size: 30px;
+  padding: 10px;
+  color: #000000;
+}
+
+.headerIconsSchool > .iconInsta:hover {
+  background: linear-gradient(
+      to left,
+      rgb(245, 48, 104) 50%,
+      rgb(255, 255, 255) 50%
+    )
+    right;
+  color: white;
+  background-size: 200%;
+  transition: 0.6s ease-out;
+}
+
+.headerIconsSchool > .iconLike:hover {
+  background: linear-gradient(
+      to left,
+      rgb(99, 221, 255) 60%,
+      rgb(255, 255, 255) 40%
+    )
+    right;
+  color: white;
+  background-size: 200%;
+  transition: 0.6s ease-out;
+}
+
+.headerIconsSchool > .iconLink:hover {
+  background: linear-gradient(to left, #5100ba 60%, rgb(255, 255, 255) 40%)
+    right;
+  color: white;
+  background-size: 200%;
+  transition: 0.6s ease-out;
+}
+
+.headerIconsSchool > .iconTwitter:hover {
+  background: linear-gradient(
+      to left,
+      rgb(104, 179, 255) 60%,
+      rgb(255, 255, 255) 40%
+    )
+    right;
+  color: white;
+  background-size: 200%;
+  transition: 0.6s ease-out;
+}
+
+.headerContent {
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+
+.headerContentTitle {
+  font-size: 4.8rem;
+  line-height: 1.17;
+  color: #fff;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.headerContentBody {
+  color: #fff;
+  font-size: 1.2rem;
+  line-height: 1.68;
+  letter-spacing: -0.04rem;
+  margin-bottom: 1.8rem;
+  font-weight: 400;
+  max-width: 82rem;
+  font-family: Work Sans, Arial, Helvetica Neue, sans-serif;
+}
+
+.headerImg {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  /* width:90%; */
+  border: solid 5px white;
+  margin-top: -200px;
+  margin-left: 3%;
+}
+
+.imgAndTabs {
+  display: flex;
+  flex-direction: row;
+}
+
+.antTabs {
+  margin-top: -40px !important;
+  width: 100vw;
+  margin-left: 50px !important;
+}
+
+.ant-tabs-card.ant-tabs-top > .ant-tabs-nav .ant-tabs-tab-active,
+.ant-tabs-card.ant-tabs-top > div > .ant-tabs-nav .ant-tabs-tab-active {
+  background-color: #7814ff;
+  border: none;
+  margin-left: 20px !important;
+  margin-right: 20px !important;
+}
+.ant-tabs > .ant-tabs-nav .ant-tabs-nav-wrap,
+.ant-tabs > div > .ant-tabs-nav .ant-tabs-nav-wrap {
+  background-color: #7814ff;
+}
+
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: rgb(255, 255, 255) !important ;
+  background-color: #7814ff;
+  font-size: 15px;
+  border: none;
+}
+.antTabsTab {
+  background-color: #7814ff;
+}
+
+#scrollableDiv {
+  border: none !important;
+}

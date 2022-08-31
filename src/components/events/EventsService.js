@@ -22,10 +22,24 @@ const getEventById = async (eventId) => {
   return response.data;
 };
 
-const updateEvent = async (eventId) => {
+const updateEventLikes = async (eventId) => {
   const response = await axios.put(`${API_EVENTS_URL}${eventId}`);
   return response.data;
 };
 
-const eventsService = { createEvent, getEvents, getEventById, updateEvent };
+const editEvent = async (eventData) => {
+  const response = await axios.put(
+    `${API_EVENTS_URL}edit/${eventData.id}`,
+    eventData
+  );
+  return response.data;
+};
+
+const eventsService = {
+  createEvent,
+  getEvents,
+  getEventById,
+  updateEventLikes,
+  editEvent,
+};
 export default eventsService;

@@ -1,30 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { Input, Avatar, Form, Modal, Button, message, Select } from "antd";
-import { createCourse, addCoursesAndTrainers } from "./CoursesSlice";
+import React, { useEffect, useState } from "react";
+import { Input, Avatar, Form, message, DatePicker } from "antd";
 import { getTrainers } from "../trainers/trainersSlice";
+import { editEvent, getEventById } from "./EventsSlice";
 import FormItem from "antd/lib/form/FormItem";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Select } from "antd";
+import { useNavigate, useParams } from "react-router-dom";
+import moment from "moment";
 
-const { Option } = Select;
-
-const danceStyles = [
-  "Rumba",
-  "Samba",
-  "Salsa",
-  "Batchata",
-  "Tango",
-  "Jive",
-  "Contemporary Dance",
-  "Ballroom",
-  "Contemporary",
-  "Hip Hop",
-  "Jazz",
-  "Tap Dance",
-  "Folk Dance",
-  "Irish Dance",
-];
-export default function CreateCourse() {
+export default function EditEvent({ closeModal }) {
   const validateMessages = {
     required: "${label} is required!",
     types: {
@@ -35,78 +19,69 @@ export default function CreateCourse() {
       range: "${label} must be between ${min} and ${max}",
     },
   };
+  
   const [form] = Form.useForm();
-  const { trainers } = useSelector((state) => state.trainers);
+  const { currentEvent } = useSelector((state) => state.events);
+  const trainers = useSelector((state) => state.trainers.trainers);
   const params = useParams();
-  const schoolId = params.schoolId;
+  const eventId = params.eventId;
   const dispatch = useDispatch();
-  const { courses, courseId, trainersId } = useSelector(
-    (state) => state.courses
-  );
+  const navigate = useNavigate();
   const { Option } = Select;
-  const [value, setValue] = useState("");
-  const onChange = (e) => {
-    setValue(e.target.value);
-  };
+  const [value, setValue] = useState("Event");
 
   useEffect(() => {
+    dispatch(getEventById(eventId));
     dispatch(getTrainers());
   }, []);
 
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const showModal = () => {
-    setIsModalVisible(true);
+  const onChangeDatePicker = (date, dateString) => {
+    console.log(date, dateString);
   };
 
-  const handleCancel = () => {
-    setIsModalVisible(false);
-  };
-
-  const onFinishCourse = (values) => {
-    const newCourse = {
+  const onFinishEvent = (values) => {
+    const newEvent = {
       ...values,
-      danceStyles: values.danceStyles.map((dance) => dance.toLowerCase()),
-      likes: 0,
-      schoolId: schoolId,
+      schoolId: currentEvent.schoolId,
+      type: currentEvent.type,
+      currentNumberOfParticipants: values.initialNumberOfParticipants,
+      id: eventId,
     };
-    dispatch(createCourse(newCourse));
-    message.success("Your course has been successfully added!");
+    dispatch(editEvent(newEvent));
+    message.success(`Your ${value} has been successfully updated!`);
     form.resetFields();
+    navigate(`/events/${eventId}`);
+    closeModal();
   };
-
-  useEffect(() => {
-    trainersId.forEach((trainers) =>
-      trainers.forEach((trainer) =>
-        dispatch(
-          addCoursesAndTrainers({ courseId: courseId, trainerId: trainer })
-        )
-      )
-    );
-  }, [courseId]);
 
   return (
-    <div
-      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-    >
-      <Button onClick={showModal}>Create Course</Button>
-      <Modal
-        title="Create a New Course"
-        visible={isModalVisible}
-        footer={null}
-        width={1000}
-        onCancel={handleCancel}
-      >
+    <div>
+      {Object.keys(currentEvent).length !== 0 && (
         <Form
+          initialValues={{
+            title: currentEvent.title,
+            description: currentEvent.description,
+            date: moment(currentEvent.date),
+            type: currentEvent.type,
+            trainers: currentEvent.trainers,
+            initialNumberOfParticipants:
+              currentEvent.initialNumberOfParticipants,
+            currentNumberOfParticipants:
+              currentEvent.currentNumberOfParticipants,
+            location: currentEvent.location,
+            schoolId: currentEvent.schoolId,
+            imageURL: currentEvent.imageURL,
+          }}
           form={form}
           style={{ width: "60%" }}
           name="nest-messages"
-          onFinish={onFinishCourse}
+          onFinish={onFinishEvent}
           validateMessages={validateMessages}
           className="createEventForm"
         >
           <Form.Item
             name={"title"}
-            label="Course Title"
+            label={`${currentEvent.type} Title`}
             rules={[
               {
                 required: true,
@@ -117,7 +92,7 @@ export default function CreateCourse() {
           </Form.Item>
           <Form.Item
             name={"description"}
-            label="Course Description"
+            label={`${currentEvent.type} Description`}
             rules={[
               {
                 required: true,
@@ -125,6 +100,17 @@ export default function CreateCourse() {
             ]}
           >
             <Input />
+          </Form.Item>
+          <Form.Item
+            name={"date"}
+            label={`${currentEvent.type} Date`}
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <DatePicker onChange={onChangeDatePicker} />
           </Form.Item>
           <FormItem
             name={"trainers"}
@@ -143,7 +129,7 @@ export default function CreateCourse() {
               placeholder="Select Trainers"
             >
               {trainers.map((trainer) => (
-                <Option key={trainer.id}>
+                <Option key={trainer.firstName}>
                   <div>
                     <Avatar
                       style={{
@@ -160,29 +146,8 @@ export default function CreateCourse() {
               ))}
             </Select>
           </FormItem>
-          <FormItem
-            name={"danceStyles"}
-            label="Select Dance Styles"
-            rules={[
-              {
-                required: true,
-              },
-            ]}
-          >
-            <Select
-              mode="tags"
-              style={{
-                width: "100%",
-              }}
-              placeholder="Select Dance Styles"
-            >
-              {danceStyles.map((danceStyle) => (
-                <Option key={danceStyle}>{danceStyle}</Option>
-              ))}
-            </Select>
-          </FormItem>
           <Form.Item
-            name={"maxNumberOfParticipants"}
+            name={"initialNumberOfParticipants"}
             label="The maximum number of participants"
             rules={[
               {
@@ -193,21 +158,26 @@ export default function CreateCourse() {
             <Input />
           </Form.Item>
           <Form.Item
-            name={"imagesURL"}
-            label="Images URL"
+            name={"location"}
+            label="Location"
             rules={[
               {
                 required: true,
               },
             ]}
           >
-            <Select
-              mode="tags"
-              style={{
-                width: "100%",
-              }}
-              placeholder="Upload Images"
-            />
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name={"imageURL"}
+            label="Image URL"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <Input />
           </Form.Item>
           <div className="submit-button">
             <button
@@ -215,11 +185,11 @@ export default function CreateCourse() {
               type="primary"
               htmlType="submit"
             >
-              Add Course
+              Update {currentEvent.type}
             </button>
           </div>
         </Form>
-      </Modal>
+      )}
     </div>
   );
 }

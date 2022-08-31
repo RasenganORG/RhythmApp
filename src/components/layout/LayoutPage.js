@@ -1,6 +1,6 @@
 import React from "react";
 import "./LayoutPage.css";
-import { Outlet, NavLink } from "react-router-dom";
+import { Outlet, NavLink, useNavigate } from "react-router-dom";
 import { Layout, Menu } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { logout, authActions } from "../auth/authSlice";
@@ -17,6 +17,7 @@ const { Header, Content } = Layout;
 
 const LayoutPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const isAuth = useSelector((state) => state.auth.user);
   const activeStyle = {
     textDecoration: "underline",
@@ -31,7 +32,7 @@ const LayoutPage = () => {
   const menuItems = [
     isAuth
       ? {
-          label: <>Hello, {isAuth.username}!</>,
+          label: <div onClick={() => navigate("/")}>Hello, {isAuth.username}!</div>,
           key: "item-7",
         }
       : null,
@@ -61,13 +62,24 @@ const LayoutPage = () => {
     {
       label: (
         <NavLink
+          to="/trainers"
+          style={({ isActive }) => (isActive ? activeStyle : undefined)}
+        >
+          Trainers
+        </NavLink>
+      ),
+      key: "item-3",
+    },
+    {
+      label: (
+        <NavLink
           to="/statistics"
           style={({ isActive }) => (isActive ? activeStyle : undefined)}
         >
           Statistics
         </NavLink>
       ),
-      key: "item-3",
+      key: "item-4",
       icon: <BarChartOutlined />,
     },
     {
@@ -83,7 +95,7 @@ const LayoutPage = () => {
           Log In
         </NavLink>
       ),
-      key: "item-4",
+      key: "item-5",
       icon: isAuth ? <LogoutOutlined /> : <LoginOutlined />,
     },
     !isAuth
@@ -96,7 +108,7 @@ const LayoutPage = () => {
               Register
             </NavLink>
           ),
-          key: "item-5",
+          key: "item-6",
           icon: <UserAddOutlined />,
         }
       : null,

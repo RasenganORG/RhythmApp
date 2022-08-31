@@ -1,12 +1,22 @@
-import React, { useState, useEffect } from "react";
-import { Input, Avatar, Form, Modal, Button, message, Select } from "antd";
-import { createCourse, addCoursesAndTrainers } from "./CoursesSlice";
-import { getTrainers } from "../trainers/trainersSlice";
-import FormItem from "antd/lib/form/FormItem";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { getTrainers } from "../trainers/trainersSlice";
+import { getCourseById, editCourse } from "./CoursesSlice";
+import { Input, Avatar, Form, message, TimePicker, Select } from "antd";
+import FormItem from "antd/lib/form/FormItem";
+import moment from "moment";
 
-const { Option } = Select;
+const validateMessages = {
+  required: "${label} is required!",
+  types: {
+    email: "${label} is not a valid email!",
+    number: "${label} is not a valid number!",
+  },
+  number: {
+    range: "${label} must be between ${min} and ${max}",
+  },
+};
 
 const danceStyles = [
   "Rumba",
@@ -24,83 +34,66 @@ const danceStyles = [
   "Folk Dance",
   "Irish Dance",
 ];
-export default function CreateCourse() {
-  const validateMessages = {
-    required: "${label} is required!",
-    types: {
-      email: "${label} is not a valid email!",
-      number: "${label} is not a valid number!",
-    },
-    number: {
-      range: "${label} must be between ${min} and ${max}",
-    },
-  };
+const daysOfTheWeek = [
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+  "Sunday",
+];
+
+export default function EditCourse({ closeModal }) {
   const [form] = Form.useForm();
-  const { trainers } = useSelector((state) => state.trainers);
-  const params = useParams();
-  const schoolId = params.schoolId;
   const dispatch = useDispatch();
-  const { courses, courseId, trainersId } = useSelector(
-    (state) => state.courses
-  );
+  const params = useParams();
+  const { currentCourse } = useSelector((state) => state.courses);
+  const trainers = useSelector((state) => state.trainers.trainers);
   const { Option } = Select;
   const [value, setValue] = useState("");
-  const onChange = (e) => {
-    setValue(e.target.value);
-  };
+  const courseId = params.courseId;
+  const schoolId = currentCourse.schoolId;
 
   useEffect(() => {
+    dispatch(getCourseById(courseId));
     dispatch(getTrainers());
   }, []);
 
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const showModal = () => {
-    setIsModalVisible(true);
-  };
-
-  const handleCancel = () => {
-    setIsModalVisible(false);
-  };
-
-  const onFinishCourse = (values) => {
+  const onFinish = (values) => {
     const newCourse = {
       ...values,
       danceStyles: values.danceStyles.map((dance) => dance.toLowerCase()),
       likes: 0,
       schoolId: schoolId,
     };
-    dispatch(createCourse(newCourse));
-    message.success("Your course has been successfully added!");
+    dispatch(editCourse(newCourse));
+    message.success("Your course has been successfully updated!");
     form.resetFields();
+    closeModal();
   };
 
-  useEffect(() => {
-    trainersId.forEach((trainers) =>
-      trainers.forEach((trainer) =>
-        dispatch(
-          addCoursesAndTrainers({ courseId: courseId, trainerId: trainer })
-        )
-      )
-    );
-  }, [courseId]);
-
   return (
-    <div
-      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-    >
-      <Button onClick={showModal}>Create Course</Button>
-      <Modal
-        title="Create a New Course"
-        visible={isModalVisible}
-        footer={null}
-        width={1000}
-        onCancel={handleCancel}
-      >
+    <div>
+      {Object.keys(currentCourse).length !== 0 && (
         <Form
+          initialValues={{
+            title: currentCourse.title,
+            schoolId: currentCourse.schoolId,
+            description: currentCourse.description,
+            likes: currentCourse.likes,
+            maxNumberOfParticipants: currentCourse.maxNumberOfParticipants,
+            trainers: currentCourse.trainers,
+            danceStyles: currentCourse.danceStyles,
+            day: currentCourse.day,
+            EndHour: moment(currentCourse.EndHour),
+            StartHour: moment(currentCourse.StartHour),
+            imagesURL: currentCourse.imagesURL,
+          }}
           form={form}
           style={{ width: "60%" }}
           name="nest-messages"
-          onFinish={onFinishCourse}
+          onFinish={onFinish}
           validateMessages={validateMessages}
           className="createEventForm"
         >
@@ -143,7 +136,7 @@ export default function CreateCourse() {
               placeholder="Select Trainers"
             >
               {trainers.map((trainer) => (
-                <Option key={trainer.id}>
+                <Option key={trainer.firstName}>
                   <div>
                     <Avatar
                       style={{
@@ -181,6 +174,49 @@ export default function CreateCourse() {
               ))}
             </Select>
           </FormItem>
+          <FormItem
+            name={"day"}
+            label="Select the day"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <Select
+              defaultValue=""
+              style={{
+                width: 120,
+              }}
+            >
+              {daysOfTheWeek.map((day) => (
+                <Option value={day} />
+              ))}
+            </Select>
+          </FormItem>
+          <FormItem
+            name={"StartHour"}
+            label="Select the start hour"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <TimePicker />
+          </FormItem>
+          <FormItem
+            name={"EndHour"}
+            label="Select the end hour"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <TimePicker />
+          </FormItem>
+
           <Form.Item
             name={"maxNumberOfParticipants"}
             label="The maximum number of participants"
@@ -215,11 +251,11 @@ export default function CreateCourse() {
               type="primary"
               htmlType="submit"
             >
-              Add Course
+              Update Course
             </button>
           </div>
         </Form>
-      </Modal>
+      )}
     </div>
   );
 }

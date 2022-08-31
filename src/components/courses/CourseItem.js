@@ -1,49 +1,83 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { List, Avatar, Tabs } from "antd";
+import { List, Avatar, Tabs, Modal } from "antd";
 import { useSelector, useDispatch } from "react-redux";
-import { getCourseById } from "./CoursesSlice";
+import {
+  getByCourseId,
+  getCourseById,
+  updateCourseLikes,
+} from "./CoursesSlice";
 import "./CoursesItem.css";
 import CalendarPage from "../schools/CalendarPage";
 import { Image } from "antd";
-import { LikeFilled, LinkOutlined } from "@ant-design/icons";
+import { LikeFilled, LinkOutlined, EditOutlined } from "@ant-design/icons";
+import EditCourse from "./EditCourse";
 
 const { TabPane } = Tabs;
 
 export default function CourseItem() {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const params = useParams();
   const courseId = params.courseId;
-  const currentCourse = useSelector((state) => state.courses.currentCourse);
+  const { currentCourse, trainersForThisCourse } = useSelector(
+    (state) => state.courses
+  );
   const { schools } = useSelector((state) => state.schools);
   const schoolId = currentCourse.schoolId;
   const school = schools.filter((school) => school.id === schoolId);
-  const navigate = useNavigate();
   const [size, setSize] = useState("small");
+
   useEffect(() => {
-    dispatch(getCourseById(courseId));
+    dispatch(getCourseById(courseId)); //all courses
+    dispatch(getByCourseId(courseId)); //tabela intermediara
   }, []);
 
   const handleClick = () => {
     navigate(`/schools/${school[0].id}`);
   };
+
   return (
     <>
       <div className="headerCourse">
         <div className="headerIconsCourse">
           <div className="likeCourse iconCourse">
-            <LikeFilled />
+            <LikeFilled onClick={() => dispatch(updateCourseLikes(courseId))} />
           </div>
           <div className="linkCourse iconCourse">
             <LinkOutlined />
           </div>
         </div>
         <div className="headerCourseContent">
+          <EditOutlined
+            className="editButton"
+            style={{ fontSize: "17px" }}
+            onClick={showModal}
+          />
+          <Modal
+            title="New School"
+            visible={isModalVisible}
+            footer={null}
+            width={1000}
+            onCancel={handleCancel}
+          >
+            <EditCourse closeModal={() => setIsModalVisible(false)} />
+          </Modal>
           <div className="headerCourseTitle">{currentCourse.title}</div>
           <div className="headerCourseSchool" onClick={handleClick}></div>
           <div>
-            Maximum Number Of Participants:{" "}
-            {currentCourse.maxNumberOfParticipants}
+            <p>
+              Maximum Number Of Participants:{" "}
+              {currentCourse.maxNumberOfParticipants}
+            </p>
+            <p>Liked By: {currentCourse.likes} people</p>
           </div>
         </div>
       </div>
@@ -69,16 +103,20 @@ export default function CourseItem() {
           <TabPane tab="See the trainers" key="2">
             <List
               itemLayout="horizontal"
-              dataSource={currentCourse.trainers}
+              dataSource={trainersForThisCourse}
               renderItem={(trainer) => (
                 <List.Item>
                   <List.Item.Meta
                     avatar={
                       <Avatar style={{ backgroundColor: "#9700d2 " }}>
-                        {trainer[0]}
+                        {trainer.firstName[0]}
                       </Avatar>
                     }
-                    title={<a href="https://ant.design">{trainer}</a>}
+                    title={
+                      <p onClick={() => navigate(`/trainers/${trainer.id}`)}>
+                        {trainer.firstName} {trainer.lastName}
+                      </p>
+                    }
                   />
                 </List.Item>
               )}

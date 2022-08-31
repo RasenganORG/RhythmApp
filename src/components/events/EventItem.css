@@ -13,7 +13,9 @@
   align-items: center;
   font-weight: 800;
 }
-
+.editButton{
+  margin-left: 400px;
+}
 .eventSidebar > .eventCard {
   width: 20vw;
   justify-content: center;

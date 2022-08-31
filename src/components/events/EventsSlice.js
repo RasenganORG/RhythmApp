@@ -61,11 +61,28 @@ export const getEventById = createAsyncThunk(
   }
 );
 
-export const updateEvent = createAsyncThunk(
-  "events/updateEvent",
+export const updateEventLikes = createAsyncThunk(
+  "events/updateEventLikes",
   async (eventId, thunkAPI) => {
     try {
-      return await eventsService.updateEvent(eventId);
+      return await eventsService.updateEventLikes(eventId);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const editEvent = createAsyncThunk(
+  "events/editEvent",
+  async (eventData, thunkAPI) => {
+    try {
+      return await eventsService.editEvent(eventData);
     } catch (error) {
       const message =
         (error.response &&
@@ -133,20 +150,33 @@ const eventsSlice = createSlice({
         state.message = action.payload;
         state.currentEvent = {};
       })
-      .addCase(updateEvent.pending, (state) => {
+      .addCase(updateEventLikes.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(updateEvent.fulfilled, (state, action) => {
+      .addCase(updateEventLikes.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
         state.events.find((event) => event.id === action.payload.id).currentNumberOfParticipants--
         state.currentEvent.currentNumberOfParticipants--
       })
-      .addCase(updateEvent.rejected, (state, action) => {
+      .addCase(updateEventLikes.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
         state.events = {};
+      })
+      .addCase(editEvent.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(editEvent.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.events = [...state.events,  action.payload];
+      })
+      .addCase(editEvent.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
       });
   },
 });

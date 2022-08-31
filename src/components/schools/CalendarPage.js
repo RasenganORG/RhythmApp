@@ -3,15 +3,14 @@ import { Badge, Calendar } from "antd";
 import CreateEvent from "../events/CreateEvent";
 import { useSelector, useDispatch } from "react-redux";
 import { getEvents } from "../events/EventsSlice";
-import './CalendarPage.css'
-import { useNavigate } from "react-router-dom";
+import "./CalendarPage.css";
+import moment from "moment";
 
 export default function CalendarPage() {
-  const navigate = useNavigate()
-  const onPanelChange = (value, mode) => {
-  };
+  const onPanelChange = (value, mode) => {};
   const dispatch = useDispatch();
   const { events } = useSelector((state) => state.events);
+
   useEffect(() => {
     dispatch(getEvents());
   }, []);
@@ -20,12 +19,36 @@ export default function CalendarPage() {
     const listData = [];
     let dateValue = value.format("yyyy-MM-DD");
     events.map((event) => {
-      if (dateValue === event.date.substring(0, 10)) {
-        listData.push({
-          type: "success",
-          content: `${event.title}`,
-          eventId: event.id,
-        });
+      const startDate = moment(event.startDate).format("YYYY-MM-DD");
+      const endDate = moment(event.endDate).format("YYYY-MM-DD");
+      if (
+        moment(dateValue).isBetween(startDate, endDate) ||
+        moment(dateValue).isSame(startDate) ||
+        moment(dateValue).isSame(endDate)
+      ) {
+        event.type === "Course"
+          ? listData.push({
+              type: "blue",
+              content: `${event.title}`,
+              eventId: event.id,
+            })
+          : event.type === "Party"
+          ? listData.push({
+              type: "magenta",
+              content: `${event.title}`,
+              eventId: event.id,
+            })
+          : event.type === "Competition"
+          ? listData.push({
+              type: "gold",
+              content: `${event.title}`,
+              eventId: event.id,
+            })
+          : listData.push({
+              type: "lime",
+              content: `${event.title}`,
+              eventId: event.id,
+            });
       }
     });
     return listData;
@@ -60,7 +83,7 @@ export default function CalendarPage() {
     );
   };
   return (
-    <div>
+    <div id="calendarPage">
       <CreateEvent />
       <Calendar dateCellRender={dateCellRender} onPanelChange={onPanelChange} />
     </div>

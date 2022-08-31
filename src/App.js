@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import News from "./components/news/News";
 import Schools from "./components/schools/Schools";
@@ -12,25 +12,46 @@ import RequiredAuth from "./components/auth/RequiredAuth";
 import AddSchools from "./components/schools/addSchools";
 import Register from "./components/auth/Register";
 import CourseItem from "./components/courses/CourseItem";
-import Courses from "./components/courses/Courses";
 import EventItem from "./components/events/EventItem";
-import Events from "./components/events/EventsCard";
+import SearchComponent from "./components/search/SearchComponent";
+import EditSchool from "./components/schools/EditSchool";
+import EditCourse from "./components/courses/EditCourse";
+import EditNews from "./components/news/EditNews";
+import EditEvent from "./components/events/EditEvent";
+import Trainers from "./components/trainers/Trainers";
+import TrainersItem from "./components/trainers/TrainersItem";
+
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LayoutPage />}>
-            <Route index element={<News />} />
+            <Route
+              index
+              element={
+                <>
+                  <SearchComponent />
+                  <News />
+                </>
+              }
+            />
             <Route path="news" element={<News />} />
             <Route path="news/:newsId" element={<NewsItem />} />
+            <Route path="news/:newsId/edit" element={<EditNews />} />
             <Route path="schools" element={<Schools />} />
             <Route path="schools/:schoolId" element={<SchoolsItem />} />
+            <Route path="schools/:schoolId/edit" element={<EditSchool />} />
             <Route
               path="schools/:schoolId/:courseId"
               element={<CourseItem />}
             />
+            <Route
+              path="schools/:schoolId/:courseId/edit"
+              element={<EditCourse />}
+            />
             <Route path="events/:eventId" element={<EventItem />} />
+            <Route path="events/:eventId/edit" element={<EditEvent />} />
             <Route
               path="statistics"
               element={
@@ -39,6 +60,9 @@ function App() {
                 </RequiredAuth>
               }
             />
+            <Route path="trainers" element={<Trainers />} />
+            <Route path="trainers/:trainerId" element={<TrainersItem />} />
+            {/* <Route path="trainers/:trainerId/edit" element={<EditSchool />} /> */}
             <Route path="addSchools" element={<AddSchools />} />
             <Route path="register" element={<Register />} />
             <Route path="*" element={<NotFound />} />

@@ -1,30 +1,46 @@
-import { Tabs, Avatar, List } from "antd";
+import { Tabs, Avatar, List, Modal, Tag } from "antd";
 import { LikeTwoTone } from "@ant-design/icons";
-import { getSchoolById, updateSchool } from "./schoolsSlice";
+import { getSchoolById, updateSchoolLikes, getBySchool } from "./schoolsSlice";
+import { updateTrainerLikes } from "../trainers/trainersSlice";
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import Courses from "../courses/Courses";
 import CalendarPage from "./CalendarPage";
-import "./SchoolItem.css";
+import { useNavigate } from "react-router-dom";
+import EditSchool from "./EditSchool";
 import {
   InstagramFilled,
   LikeFilled,
   LinkOutlined,
   TwitterOutlined,
+  EditOutlined,
 } from "@ant-design/icons";
+import "./SchoolsItem.css";
 
 const { TabPane } = Tabs;
 
 export default function SchoolsItem() {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const params = useParams();
   const schoolId = params.schoolId;
-  const currentSchool = useSelector((state) => state.schools.currentSchool);
+  const { currentSchool, trainersForThisSchool } = useSelector(
+    (state) => state.schools
+  );
 
   useEffect(() => {
     dispatch(getSchoolById(schoolId));
-  }, []);
+    dispatch(getBySchool(schoolId));
+  }, [schoolId]);
 
   const tagColors = [
     "magenta",
@@ -40,51 +56,41 @@ export default function SchoolsItem() {
     "purple",
   ];
 
-  const [loading, setLoading] = useState(false);
-  const [data, setData] = useState([]);
-
-  const loadMoreData = () => {
-    if (loading) {
-      return;
-    }
-
-    setLoading(true);
-    fetch(
-      "https://randomuser.me/api/?results=10&inc=name,gender,email,nat,picture&noinfo"
-    )
-      .then((res) => res.json())
-      .then((body) => {
-        setData([...data, ...body.results]);
-        setLoading(false);
-      })
-      .catch(() => {
-        setLoading(false);
-      });
-  };
-  useEffect(() => {
-    loadMoreData();
-  }, []);
-
   return (
     <div>
       <div className="header">
         <div className="headerIconsSchool">
-          <div className="insta icon">
+          <div className="iconInsta">
             <InstagramFilled />
           </div>
-          <div className="like icon">
-            <LikeFilled onClick={() => dispatch(updateSchool(schoolId))} />
+          <div className="iconLike">
+            <LikeFilled onClick={() => dispatch(updateSchoolLikes(schoolId))} />
           </div>
-          <div className="link icon">
+          <div className="iconLink">
             <LinkOutlined />
           </div>
-          <div className="twitter icon">
+          <div className="iconTwitter">
             <TwitterOutlined />{" "}
           </div>
         </div>
         <div className="headerContent">
+          <EditOutlined
+            className="editButton"
+            style={{ fontSize: "17px" }}
+            onClick={showModal}
+          />
+          <Modal
+            title="New School"
+            visible={isModalVisible}
+            footer={null}
+            width={1000}
+            onCancel={handleCancel}
+          >
+            <EditSchool closeModal={() => setIsModalVisible(false)} />
+          </Modal>
           <h1 className="headerContentTitle">{currentSchool?.name}</h1>
           <h1 className="headerContentBody">{currentSchool?.description}</h1>
+          <p>Liked by: {currentSchool?.likes} people</p>
         </div>
       </div>
       <div className="imgAndTabs">
@@ -95,42 +101,58 @@ export default function SchoolsItem() {
             alt="school-img"
           />
         </div>
-        <Tabs className="tabs" type="card">
+        <Tabs className="antTabs" type="card">
           <TabPane tab="Trainers" key="1">
             <div
               id="scrollableDiv"
               style={{
-                height: 400,
-                overflow: "auto",
                 padding: "0 16px",
-                border: "1px solid rgba(140, 140, 140, 0.35)",
               }}
             >
               <List
                 className="trainersList"
                 itemLayout="horizontal"
-                dataSource={currentSchool?.trainers}
-                renderItem={(trainer) => (
-                  <List.Item key={trainer}>
+                dataSource={trainersForThisSchool}
+                renderItem={(trainer, index) => (
+                  <List.Item key={index}>
                     <List.Item.Meta
                       avatar={
                         <Avatar
                           size="large"
                           style={{ backgroundColor: "#9700d2 " }}
                         >
-                          {trainer[0]}
+                          {trainer.firstName[0]}
                         </Avatar>
                       }
-                      title={<a href="https://ant.design">{trainer}</a>}
-                      description="To put the Dance Styles heree"
+                      title={
+                        <p
+                          onClick={() => navigate(`/trainers/${trainer.id}`)}
+                          style={{ cursor: "pointer" }}
+                        >
+                          {trainer.firstName} {trainer.lastName}
+                        </p>
+                      }
+                      description={trainer.danceStyles?.map((dance) => (
+                        <Tag
+                          color={
+                            tagColors[
+                              Math.floor(Math.random() * tagColors.length)
+                            ]
+                          }
+                        >
+                          #{dance}
+                        </Tag>
+                      ))}
                     />
-                    <div>
+                    <div style={{ color: "#0595f5" }}>
                       <LikeTwoTone
                         twoToneColor="#0595f5"
                         style={{
                           fontSize: "20px",
                         }}
+                        onClick={() => dispatch(updateTrainerLikes(trainer.id))}
                       />
+                      {trainer.likes}
                     </div>
                   </List.Item>
                 )}

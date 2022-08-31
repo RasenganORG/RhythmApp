@@ -22,5 +22,16 @@ const getNewsById = async (newsId) => {
   return response.data;
 };
 
-const eventsService = { createNews, getNews, getNewsById };
+const updateNewsLikes = async (newsId) => {
+  const response = await axios.put(`${API_NEWS_URL}${newsId}`);
+  return response.data;
+};
+
+const editNews = async (newsData) => {
+  const response = await axios.put(`${API_NEWS_URL}edit/${newsData.id}`, newsData);
+  return response.data;
+};
+
+
+const eventsService = { createNews, getNews, getNewsById, updateNewsLikes, editNews };
 export default eventsService;

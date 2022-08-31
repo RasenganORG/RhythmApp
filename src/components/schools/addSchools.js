@@ -1,12 +1,12 @@
-import { Button, Form, Input, Avatar, message } from "antd";
-import { useState } from "react";
+import { Form, Input, Avatar, message } from "antd";
 import FormItem from "antd/lib/form/FormItem";
-import { schoolsActions, createSchool } from "./schoolsSlice";
+import { createSchool, addSchoolsAndTrainers } from "./schoolsSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { Select, Upload } from "antd";
+import { Select } from "antd";
 import { useNavigate } from "react-router-dom";
 import "./addSchools.css";
-import ImgCrop from "antd-img-crop";
+import { useEffect } from "react";
+import { getTrainers } from "../trainers/trainersSlice";
 
 const validateMessages = {
   required: "${label} is required!",
@@ -36,21 +36,40 @@ const danceStyles = [
   "Irish Dance",
 ];
 
-export default function AddSchool({closeModal}) {
+export default function AddSchool({ closeModal }) {
   const [form] = Form.useForm();
   const navigate = useNavigate();
+  const { schoolId, trainersId } = useSelector((state) => state.schools);
   const trainers = useSelector((state) => state.trainers.trainers);
   const dispatch = useDispatch();
   const { Option } = Select;
 
+  useEffect(() => {
+    dispatch(getTrainers());
+  }, []);
+
   const onFinish = (values) => {
-    const newSchool = { ...values, likes: "0"};
+    const newSchool = {
+      ...values,
+      lowerCaseName: values.name.toLowerCase(),
+      likes: "0",
+    };
     dispatch(createSchool(newSchool));
     navigate("/schools");
     message.success("Your school has been successfully added!");
     form.resetFields();
     closeModal();
   };
+
+  useEffect(() => {
+    trainersId.forEach((trainers) =>
+      trainers.forEach((trainer) =>
+        dispatch(
+          addSchoolsAndTrainers({ schoolId: schoolId, trainerId: trainer })
+        )
+      )
+    );
+  }, [schoolId]);
 
   return (
     <div
@@ -76,7 +95,7 @@ export default function AddSchool({closeModal}) {
           <Input />
         </Form.Item>
         <FormItem
-          name={"trainers"}
+          name={"trainerId"}
           label="Select Trainers"
           rules={[
             {
@@ -92,7 +111,7 @@ export default function AddSchool({closeModal}) {
             placeholder="Select Trainers"
           >
             {trainers.map((trainer) => (
-              <Option key={trainer.trainerName}>
+              <Option key={trainer.id}>
                 <div>
                   <Avatar
                     style={{
@@ -101,9 +120,9 @@ export default function AddSchool({closeModal}) {
                     }}
                     size="small"
                   >
-                    {trainer.trainerName[0]}
+                    {trainer.firstName[0]}
                   </Avatar>
-                  {trainer.trainerName}
+                  {trainer.firstName} {trainer.lastName}
                 </div>
               </Option>
             ))}

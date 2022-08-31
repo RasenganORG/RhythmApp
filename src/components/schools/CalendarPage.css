@@ -35,3 +35,6 @@
 .notes-month section {
   font-size: 28px;
 }
+.ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled){
+ color: white !important;
+}

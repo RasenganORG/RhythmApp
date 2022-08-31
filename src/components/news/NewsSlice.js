@@ -61,6 +61,40 @@ export const getNewsById = createAsyncThunk(
   }
 );
 
+export const updateNewsLikes = createAsyncThunk(
+  "news/updateNewsLikes",
+  async (newsId, thunkAPI) => {
+    try {
+      return await newsService.updateNewsLikes(newsId);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const editNews = createAsyncThunk(
+  "news/editNews",
+  async (newsData, thunkAPI) => {
+    try {
+      return await newsService.editNews(newsData);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 const newsSlice = createSlice({
   name: "news",
   initialState,
@@ -112,6 +146,33 @@ const newsSlice = createSlice({
         state.isError = true;
         state.message = action.payload;
         state.currentNews = {};
+      })
+      .addCase(updateNewsLikes.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateNewsLikes.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.news.find((event) => event.id === action.payload.id).likes++
+        state.currentNews.likes++
+      })
+      .addCase(updateNewsLikes.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+        state.news = {};
+      })
+      .addCase(editNews.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(editNews.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+      })
+      .addCase(editNews.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
       });
   },
 });
