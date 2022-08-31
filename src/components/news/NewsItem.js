@@ -1,7 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { Modal } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getNewsById } from "./NewsSlice";
+import { updateNewsLikes } from "./NewsSlice";
+import { EditOutlined } from "@ant-design/icons";
 import {
   InstagramFilled,
   LikeFilled,
@@ -9,8 +12,17 @@ import {
   TwitterOutlined,
 } from "@ant-design/icons";
 import "./NewsItem.css";
+import EditNews from "./EditNews";
 
 export default function NewsItem() {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
   const dispatch = useDispatch();
   const params = useParams();
   const newsId = params.newsId;
@@ -28,7 +40,7 @@ export default function NewsItem() {
             <InstagramFilled />
           </div>
           <div className="like icon">
-            <LikeFilled />
+            <LikeFilled onClick={() => dispatch(updateNewsLikes(newsId))} />
           </div>
           <div className="link icon">
             <LinkOutlined />
@@ -39,10 +51,27 @@ export default function NewsItem() {
         </div>
         <div className="headerContent">
           <p>{currentNews.date}</p>
+          <EditOutlined
+            className="editButton"
+            style={{ fontSize: "17px" }}
+            onClick={showModal}
+          />
+          <Modal
+            title="New School"
+            visible={isModalVisible}
+            footer={null}
+            width={1000}
+            onCancel={handleCancel}
+          >
+            <EditNews closeModal={() => setIsModalVisible(false)} />
+          </Modal>
           <h1 className="headerContentTitle">{currentNews?.title}</h1>
           <p>
             By <b>{currentNews.author}</b>
           </p>
+          {currentNews.likes > 0 ? (
+            <p>Liked by {currentNews.likes} people</p>
+          ) : null}
         </div>
       </div>
       <div className="newsImg">

@@ -1,0 +1,50 @@
+.radioButtons{
+  display: flex;
+  margin-left: 22.5%;
+}
+
+.ant-input-search-large, .ant-input-group-wrapper-lg {
+  width: 55% !important;
+  display: flex !important;
+  margin: auto !important;
+  border-radius: 5px;
+  flex-wrap: wrap;
+  align-content: flex-start;
+}; 
+
+.searchList{
+  width: 100vw;
+  padding: 2% !important;
+}
+
+.ant-card-meta-description{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+.searchLikeButton{
+  font-size:18px
+}
+
+.searchCard{
+  transition: all .2s ease-in-out; 
+  font-weight: 600;
+  padding: 10px;
+}
+
+.searchCard:hover{
+ transform: scale(1.05); 
+ box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.2);
+}
+
+#searchComponent > .ant-radio-group-solid, .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled){
+  background: #7814ff !important;
+  border-color:#7814ff !important;
+}
+
+#searchComponent > .ant-btn, .ant-btn-primary, .ant-btn-lg, .ant-input-search-button{
+  background: #7814ff !important;
+  border-color: #7814ff !important;
+}

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Button } from "antd";
 import ItemsCarousel from "react-items-carousel";
 import { useSelector, useDispatch } from "react-redux";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
@@ -12,26 +11,26 @@ export default function Events() {
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const dispatch = useDispatch();
   const { events } = useSelector((state) => state.events);
-  const upcomingEvents = events.filter((event) => (moment().diff(event.date, "minutes") < 0))
+  const upcomingEvents = events.filter((event) => (moment().diff(event.startDate, "minutes") < 0))
   useEffect(() => {
     dispatch(getEvents());
   }, []);
 
   return (
-    <div style={{ padding: '0 25px' }}>
+    <div id="events" style={{ padding: '0 25px' }}>
       <ItemsCarousel
         requestToChangeActive={setActiveItemIndex}
         activeItemIndex={activeItemIndex}
         numberOfCards={4}
         leftChevron={
-          <Button shape="circle" size="large" className="back-button">
+          <button className="back-button">
             <LeftOutlined />
-          </Button>
+          </button>
         }
         rightChevron={
-          <Button shape="circle" size="large" className="forword-button">
+          <button className="forword-button">
             <RightOutlined />
-          </Button>
+          </button>
         }
         outsideChevron
         chevronWidth={0}

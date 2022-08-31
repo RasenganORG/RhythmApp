@@ -1,14 +1,24 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getEventById, updateEvent } from "./EventsSlice";
+import { getEventById, updateEventLikes } from "./EventsSlice";
 import { Divider } from "antd";
+import { EditOutlined } from "@ant-design/icons";
 import moment from "moment";
-import { Row, Col } from "antd";
+import { Row, Col, Modal } from "antd";
 import "./EventItem.css";
 import EventsCard from "./EventsCard";
+import EditEvent from "./EditEvent"
 
 export default function EventItem() {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
   const dispatch = useDispatch();
   const params = useParams();
   const eventId = params.eventId;
@@ -16,7 +26,7 @@ export default function EventItem() {
   const events = useSelector((state) => state.events.events);
   const pastEvents = events.filter(
     (event) =>
-      moment().diff(event.date, "minutes") > 0 &&
+      moment().diff(event.startDate, "minutes") > 0 &&
       event.type === currentEvent.type
   );
 
@@ -35,10 +45,24 @@ export default function EventItem() {
         </Col>
         <Col className="eventMain" span={18}>
           <div className="eventMainHeader">
+            <EditOutlined
+              className="editButton"
+              style={{ fontSize: "17px" }}
+              onClick={showModal}
+            />
+            <Modal
+              title="New School"
+              visible={isModalVisible}
+              footer={null}
+              width={1000}
+              onCancel={handleCancel}
+            >
+              <EditEvent closeModal={() => setIsModalVisible(false)} />
+            </Modal>
             <h1 className="eventMainTitle">{currentEvent.title}</h1>
             <div className="eventMainDate">
               <i className="icofont icofont-ui-calendar" />
-              <p>{moment(currentEvent.date).format("MMM Do YY")}</p>
+              <p>{moment(currentEvent.startDate).format("MMM Do YY")}</p>
             </div>
             <div className="eventMainLocation">
               <i className="icofont icofont-tack-pin" />
@@ -52,7 +76,8 @@ export default function EventItem() {
                 {currentEvent.type} Description
               </Divider>
               <p>{currentEvent.description}</p>
-              {(currentEvent.currentNumberOfParticipants > 0 && moment().diff(currentEvent.date, "minutes") < 0) ? (
+              {currentEvent.currentNumberOfParticipants > 0 &&
+              moment().diff(currentEvent.startDate, "minutes") < 0 ? (
                 <>
                   <Divider orientation="center">Available Spots</Divider>
                   <div className="eventAvailableSpots">
@@ -61,7 +86,7 @@ export default function EventItem() {
                   </div>
                   <button
                     className="eventParticipateButton"
-                    onClick={() => dispatch(updateEvent(eventId))}
+                    onClick={() => dispatch(updateEventLikes(eventId))}
                   >
                     Buy a ticket
                   </button>

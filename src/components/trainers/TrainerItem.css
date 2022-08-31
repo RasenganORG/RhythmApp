@@ -1,0 +1,151 @@
+.trainerLeftSide {
+  background-color: white;
+  width: 49.8%;
+  height: 60vh;
+}
+
+.trainerRightSide {
+  background-color: #7814ff;
+  width: 49.8%;
+}
+
+.leftUp {
+  background-color: #7814ff;
+  height: 43.5%;
+}
+
+.leftDown {
+  background-color: #e6e6e6;
+  border-top: 1px solid white;
+  height: 55%;
+  margin-top: 1%;
+  display: flex;
+  justify-content: center;
+}
+
+.trainerProfileImg {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  border: solid 7px white;
+  margin-top: -35%;
+  width: 400px;
+}
+
+.trainerFirstName {
+  font-size: 350%;
+  margin-top: 12%;
+}
+
+.trainerLastName {
+  font-size: 400%;
+}
+.trainerFirstName,
+.trainerLastName {
+  color: white;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 0;
+  margin-left: 5%;
+}
+
+.trainerInfo {
+  display: flex;
+  flex-direction: row;
+}
+
+.trainerInfo {
+  display: flex;
+  flex-direction: row;
+  color: white;
+  margin-left: 5%;
+  margin-top: 5%;
+}
+.trainerInfoText {
+  margin-bottom: 0;
+  font-size: 120%;
+  font-weight: 800;
+  color: white;
+}
+
+.trainerInfoNumber {
+  margin-bottom: 0;
+  font-size: 250%;
+  font-weight: 800;
+  color: white;
+}
+.trainerAge {
+  width: 25%;
+  line-height: 1;
+}
+.trainerDanceStyles {
+  width: 45%;
+  line-height: 1;
+}
+
+.trainerCoursesText {
+  margin-bottom: 0;
+  font-size: 150%;
+  font-weight: 800;
+  color: white;
+  line-height: 1;
+  margin-top: 30%;
+}
+
+.trainerCoursesNumber {
+  margin-bottom: 0;
+  font-size: 300%;
+  font-weight: 800;
+  color: white;
+  line-height: 1;
+}
+.trainerCourses {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30%;
+}
+
+.trainerLikes {
+  display: flex;
+  flex-direction: row;
+  margin-top: 4%;
+}
+
+.trainerLikeButton {
+  cursor: pointer;
+  font-size: 200%;
+  margin-left: 5%;
+}
+
+.trainerLikes > p {
+  margin-bottom: 0;
+  font-size: 150%;
+  font-weight: 800;
+  color: white;
+  margin-left: 1%;
+}
+
+.tabList{
+  background-color: black;
+  color: grey;
+  margin-top: 8px;
+  font-weight: 700;
+  font-size: 120%;
+  display: flex;
+  justify-content: center;
+}
+.react-tabs__tab{
+  border: none !important;
+}
+.react-tabs__tab--selected{
+  background-color: black !important;
+  font-weight: 800;
+  color: white !important;
+  bottom: 0 !important;
+  border-bottom: 5px solid #7814ff !important;
+}
+
+.trainerDescription{
+  margin: 0 10%;
+}

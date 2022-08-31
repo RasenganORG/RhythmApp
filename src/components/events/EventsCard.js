@@ -1,5 +1,5 @@
 import React from "react";
-import { Avatar, Tooltip, Row, Col } from "antd";
+import { Avatar, Tooltip, Row, Col, Badge } from "antd";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import "./EventsCard.css";
@@ -74,17 +74,49 @@ export default function EventsCard(props) {
         </div>
       </div>
       <div className="eventCardFooter">
-        {moment().diff(event.date, "minutes") < 0 ? (
-          <p>
-            Starts {moment(event.date, "YYYY-MM-DD").fromNow()} (
-            {moment(event.date).format("MMM Do YY")}){" "}
-          </p>
-        ) : (
-          <p>
-            Ended {moment(event.date, "YYYY-MM-DD").fromNow()} (
-            {moment(event.date).format("MMM Do YY")}){" "}
-          </p>
-        )}
+        {moment().diff(event.startDate, "minutes") < 0 ? (
+          event.type === "Course" ? (
+            <Badge.Ribbon text={event.type} color="blue">
+              Starts {moment(event.startDate, "YYYY-MM-DD").fromNow()} (
+              {moment(event.startDate).format("MMM Do YY")})
+            </Badge.Ribbon>
+          ) : event.type === "Party" ? (
+            <Badge.Ribbon text={event.type} color="magenta">
+              Starts {moment(event.startDate, "YYYY-MM-DD").fromNow()} (
+              {moment(event.startDate).format("MMM Do YY")})
+            </Badge.Ribbon>
+          ) : event.type === "Competition" ? (
+            <Badge.Ribbon text={event.type} color="gold">
+              Starts {moment(event.startDate, "YYYY-MM-DD").fromNow()} (
+              {moment(event.startDate).format("MMM Do YY")})
+            </Badge.Ribbon>
+          ) : event.type === "Other" ? (
+            <Badge.Ribbon text={event.type} color="lime">
+              Starts {moment(event.startDate, "YYYY-MM-DD").fromNow()} (
+              {moment(event.startDate).format("MMM Do YY")})
+            </Badge.Ribbon>
+          ) : null
+        ) : event.type === "Course" ? (
+          <Badge.Ribbon text={event.type} color="blue">
+            Ended {moment(event.startDate, "YYYY-MM-DD").fromNow()} (
+            {moment(event.startDate).format("MMM Do YY")})
+          </Badge.Ribbon>
+        ) : event.type === "Party" ? (
+          <Badge.Ribbon text={event.type} color="magenta">
+            Ended {moment(event.startDate, "YYYY-MM-DD").fromNow()} (
+            {moment(event.startDate).format("MMM Do YY")})
+          </Badge.Ribbon>
+        ) : event.type === "Competition" ? (
+          <Badge.Ribbon text={event.type} color="gold">
+            Ended {moment(event.startDate, "YYYY-MM-DD").fromNow()} (
+            {moment(event.startDate).format("MMM Do YY")})
+          </Badge.Ribbon>
+        ) : event.type === "Other" ? (
+          <Badge.Ribbon text={event.type} color="lime">
+            Ended {moment(event.startDate, "YYYY-MM-DD").fromNow()} (
+            {moment(event.startDate).format("MMM Do YY")})
+          </Badge.Ribbon>
+        ) : null}
       </div>
     </div>
   );

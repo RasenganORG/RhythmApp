@@ -1,0 +1,27 @@
+
+.trainerCard > .ant-card-cover img {
+  height: 200px;
+  width: 200px;
+  margin-bottom: 20px;
+  object-fit: cover;
+  border: 10px solid white;
+  border-radius: 50%;
+  padding: 0px;
+}
+
+.trainerCard > .ant-card-cover {
+  display: flex;
+  justify-content: center;
+  /* background-color: #7814ff; */
+  height: 100%;
+  background: linear-gradient( #ffff 50%, #7814ff 50%);
+}
+
+.trainerCard > .ant-card-cover{
+    margin-bottom: 2%;
+    border: none !important;
+}
+
+.trainerCard{
+    margin-top: 3% !important;
+}
